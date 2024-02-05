@@ -1,0 +1,331 @@
+openapi: 3.1.0
+info:
+  title: Inkeep Search and Chat API
+  description: Leverage the Inkeep APIs to create your own AI-powered search and chat experiences built on top of your own content.
+  version: 0.1.0
+servers:
+  - url: https://api.inkeep.com
+    description: Production server
+security:
+  - api_key: []
+paths:
+  /v0/chat_sessions/chat_results:
+    post:
+      summary: Create Chat Session and receive a Chat Result
+      operationId: createChatSessionWithChatResult
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateChatSessionWithChatResultInput'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChatResult'
+            text/event-stream:
+              schema:
+                $ref: '#/components/schemas/ChatResultStreamEvent'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/chat_sessions/{chat_session_id}/chat_results:
+    post:
+      summary: Continue Chat Session and receive a Chat Result
+      operationId: continueChatSessionWithChatResult
+      parameters:
+        - required: true
+          schema:
+            title: Chat Session ID
+            type: string
+          name: chat_session_id
+          in: path
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContinueChatSessionWithChatResultInput'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChatResult'
+            text/event-stream:
+              schema:
+                $ref: '#/components/schemas/ChatResultStreamEvent'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  securitySchemes:
+    api_key:
+      type: http
+      scheme: bearer
+  schemas:
+    ChatResult:
+      title: Chat Result
+      required:
+        - chat_session_id
+        - message
+      type: object
+      properties:
+        chat_session_id:
+          title: Chat Session ID
+          type: string
+        message:
+          $ref: '#/components/schemas/AssistantMessage'
+    # ChatResultStream:
+    #   title: ChatResultStream
+    #   required:
+    #     - event
+    #     - data
+    #   type: object
+    #   properties:
+    #     event:
+    #       title: Event
+    #       enum:
+    #         - message_chunk
+    #         - records_cited
+    #       type: string
+    #     data:
+    #       title: Data
+    #       oneOf:
+    #         - $ref: '#/components/schemas/MessageChunk'
+    #         - $ref: '#/components/schemas/RecordsCited'
+    ChatResultStreamEvent:
+      title: Chat Result Stream Event
+      oneOf:
+        - $ref: '#/components/schemas/ChatResultMessageChunkEvent'
+        - $ref: '#/components/schemas/ChatResultRecordsCitedEvent'
+        # - $ref: '#/components/schemas/ServerSideEvent'
+      discriminator:
+        propertyName: event
+        mapping:
+          message_chunk: '#/components/schemas/ChatResultMessageChunkEvent'
+          records_cited: '#/components/schemas/ChatResultRecordsCitedEvent'
+    # ServerSideEvent:
+    #   type: object
+    #   required: [event, data]
+    #   properties:
+    #     event:
+    #       type: string
+    #       description: The type of event being sent.
+    #     data:
+    #       type: object
+    #       description: The payload of the event
+    ChatResultMessageChunkEvent:
+      description: A server-sent event containing a chunk of the message.
+      type: object
+      required: [event, data]
+      properties:
+        event:
+          type: string
+          const: "message_chunk"
+        data:
+          $ref: '#/components/schemas/MessageChunk'
+    ChatResultRecordsCitedEvent:
+      description: A server-sent event with information about the records cited in the message.
+      type: object
+      required: [event, data]
+      properties:
+        event:
+          type: string
+          const: "records_cited"
+        data:
+          $ref: '#/components/schemas/RecordsCited'
+    ChatSessionInput:
+      title: Chat Session Input
+      required:
+        - messages
+      type: object
+      properties:
+        messages:
+          title: Messages
+          type: array
+          minItems: 1
+          maxItems: 1
+          items:
+            $ref: '#/components/schemas/Message'
+    Citation:
+      title: Citation
+      required:
+        - number
+        - record
+      type: object
+      properties:
+        number:
+          title: Citation Number
+          type: integer
+        record:
+          $ref: '#/components/schemas/Record'
+        hit_url:
+          title: Hit URL
+          type: string
+    ContinueChatSessionWithChatResultInput:
+      title: Continue Chat Session with Chat Result Input
+      required:
+        - integration_id
+        - message
+      type: object
+      properties:
+        integration_id:
+          title: Integration ID
+          type: string
+        message:
+          $ref: '#/components/schemas/Message'
+        stream:
+          title: Stream
+          type: boolean
+          default: false
+    CreateChatSessionWithChatResultInput:
+      title: Create Chat Session with Chat Result Input
+      required:
+        - integration_id
+        - chat_session
+      type: object
+      properties:
+        integration_id:
+          title: Integration ID
+          type: string
+        chat_session:
+          $ref: '#/components/schemas/ChatSessionInput'
+        chat_mode:
+          title: Chat Mode
+          type: string
+          default: auto
+        stream:
+          title: Stream
+          type: boolean
+          default: false
+    HTTPValidationError:
+      title: HTTP Validation Error
+      type: object
+      properties:
+        detail:
+          title: Detail
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+    Message:
+      oneOf:
+        - $ref: '#/components/schemas/UserMessage'
+        - $ref: '#/components/schemas/AssistantMessage'
+      discriminator:
+        propertyName: role
+        mapping:
+          user: '#/components/schemas/UserMessage'
+          assistant: '#/components/schemas/AssistantMessage'
+    UserMessage:
+      title: User Message
+      required:
+        - role
+        - content
+      type: object
+      properties:
+        role:
+          type: string
+          const: "user"
+        content:
+          title: Content
+          type: string
+    AssistantMessage:
+      title: Assistant Message
+      required:
+        - role
+        - content
+      type: object
+      properties:
+        role:
+          type: string
+          const: "assistant"
+        content:
+          title: Content
+          type: string
+        records_cited:
+          $ref: '#/components/schemas/RecordsCited'
+    MessageChunk:
+      title: Message Chunk
+      required:
+        - content_chunk
+      type: object
+      properties:
+        chat_session_id:
+          title: Chat Session ID
+          type: string
+        content_chunk:
+          title: Content Chunk
+          type: string
+          finish_reason:
+            type: string
+            enum: ["stop", "length", "content_filter"]
+    Record:
+      required:
+        - type
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/RecordType'
+        url:
+          title: URL
+          type: string
+        title:
+          title: Title
+          type: string
+        breadcrumbs:
+          title: Breadcrumbs
+          type: array
+          items:
+            type: string
+    RecordsCited:
+      title: Record Cited
+      required:
+        - citations
+      type: object
+      properties:
+        citations:
+          title: Citations
+          type: array
+          items:
+            $ref: '#/components/schemas/Citation'
+    RecordType:
+      title: Record Type
+      description: The type of record
+      oneOf:
+        - enum: [documentation, site, discourse_post, github_issue, github_discussion, stackoverflow_question, discord_forum_post, discord_message]
+          type: string
+          title: RecordTypeEnumerated
+        - title: other
+          type: string
+    ValidationError:
+      title: ValidationError
+      required:
+        - loc
+        - msg
+        - type
+      type: object
+      properties:
+        loc:
+          title: Location
+          type: array
+          items:
+            oneOf:
+              - type: string
+              - type: integer
+        msg:
+          title: ErrorMessage
+          type: string
+        type:
+          title: Error Type
+          type: string
