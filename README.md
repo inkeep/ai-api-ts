@@ -36,7 +36,6 @@ For supported JavaScript runtimes, please consult [RUNTIMES.md](RUNTIMES.md).
 
 ```typescript
 import { InkeepClient } from "@inkeep/chat-api";
-import { ChatMode } from "@inkeep/chat-api/models/components";
 
 async function run() {
     const sdk = new InkeepClient({
@@ -84,7 +83,6 @@ underlying connection.
 
 ```typescript
 import { InkeepClient } from "@inkeep/chat-api";
-import { ChatMode } from "@inkeep/chat-api/models/components";
 
 async function run() {
     const sdk = new InkeepClient({
@@ -129,7 +127,6 @@ Example
 
 ```typescript
 import { InkeepClient } from "@inkeep/chat-api";
-import { ChatMode } from "@inkeep/chat-api/models/components";
 import * as errors from "@inkeep/chat-api/models/errors";
 
 async function run() {
@@ -184,7 +181,6 @@ You can override the default server globally by passing a server index to the `s
 
 ```typescript
 import { InkeepClient } from "@inkeep/chat-api";
-import { ChatMode } from "@inkeep/chat-api/models/components";
 
 async function run() {
     const sdk = new InkeepClient({
@@ -219,7 +215,6 @@ The default server can also be overridden globally by passing a URL to the `serv
 
 ```typescript
 import { InkeepClient } from "@inkeep/chat-api";
-import { ChatMode } from "@inkeep/chat-api/models/components";
 
 async function run() {
     const sdk = new InkeepClient({
@@ -311,7 +306,6 @@ This SDK supports the following security scheme globally:
 To authenticate with the API the `apiKey` parameter must be set when initializing the SDK client instance. For example:
 ```typescript
 import { InkeepClient } from "@inkeep/chat-api";
-import { ChatMode } from "@inkeep/chat-api/models/components";
 
 async function run() {
     const sdk = new InkeepClient({

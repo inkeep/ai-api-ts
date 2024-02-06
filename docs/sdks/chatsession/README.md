@@ -18,7 +18,6 @@ Create Chat Session and receive a Chat Result
 
 ```typescript
 import { InkeepClient } from "@inkeep/chat-api";
-import { ChatMode } from "@inkeep/chat-api/models/components";
 
 async function run() {
   const sdk = new InkeepClient({

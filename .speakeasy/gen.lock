@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 34eefffd-7ab1-47f5-a2d6-ed3b060612b0
 management:
-  docChecksum: 16ce920a2df58cfdf1096bad1e071257
+  docChecksum: 43d55285662f47766a8a1c06a8e9f868
   docVersion: 0.1.0
   speakeasyVersion: internal
   generationVersion: 2.250.2
-  releaseVersion: 0.0.3
-  configChecksum: 0ae6b99abb77454f4a220099419f4f95
+  releaseVersion: 0.0.4
+  configChecksum: e31d5e78107fa98b3d0c619c4fd3762e
   repoURL: https://github.com/inkeep/chat-api-ts.git
   repoSubDirectory: .
   installationURL: https://github.com/inkeep/chat-api-ts
@@ -76,6 +76,7 @@ generatedFiles:
   - docs/models/operations/continueresponse.md
   - docs/models/components/chatresultstreamevent.md
   - docs/models/components/chatresultmessagechunkevent.md
+  - docs/models/components/finishreason.md
   - docs/models/components/messagechunk.md
   - docs/models/components/chatresultrecordscitedevent.md
   - docs/models/components/recordscited.md
@@ -87,7 +88,6 @@ generatedFiles:
   - docs/models/components/assistantmessageresponse.md
   - docs/models/components/loc.md
   - docs/models/components/validationerror.md
-  - docs/models/components/chatmode.md
   - docs/models/components/createchatsessionwithchatresultinput.md
   - docs/models/components/chatsessioninput.md
   - docs/models/components/message.md
