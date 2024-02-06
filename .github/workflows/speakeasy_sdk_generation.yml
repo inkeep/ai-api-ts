@@ -16,7 +16,7 @@ jobs:
     with:
       speakeasy_version: latest
       openapi_docs: |
-        - location: https://github.com/inkeep/chat-api-openapi-schema/blob/main/openapi.yaml
+        - https://github.com/inkeep/chat-api-openapi-schema/blob/main/openapi.yaml
       languages: |
         - typescript
       publish_typescript: true
