@@ -13,7 +13,7 @@ export enum FinishReason {
 export type MessageChunk = {
     chatSessionId?: string | undefined;
     contentChunk: string;
-    finishReason?: FinishReason | undefined;
+    finishReason?: FinishReason | null | undefined;
 };
 
 /** @internal */
@@ -24,14 +24,14 @@ export namespace MessageChunk$ {
     export type Inbound = {
         chat_session_id?: string | undefined;
         content_chunk: string;
-        finish_reason?: FinishReason | undefined;
+        finish_reason?: FinishReason | null | undefined;
     };
 
     export const inboundSchema: z.ZodType<MessageChunk, z.ZodTypeDef, Inbound> = z
         .object({
             chat_session_id: z.string().optional(),
             content_chunk: z.string(),
-            finish_reason: FinishReason$.optional(),
+            finish_reason: z.nullable(FinishReason$).optional(),
         })
         .transform((v) => {
             return {
@@ -44,14 +44,14 @@ export namespace MessageChunk$ {
     export type Outbound = {
         chat_session_id?: string | undefined;
         content_chunk: string;
-        finish_reason?: FinishReason | undefined;
+        finish_reason?: FinishReason | null | undefined;
     };
 
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, MessageChunk> = z
         .object({
             chatSessionId: z.string().optional(),
             contentChunk: z.string(),
-            finishReason: FinishReason$.optional(),
+            finishReason: z.nullable(FinishReason$).optional(),
         })
         .transform((v) => {
             return {

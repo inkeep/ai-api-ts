@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 34eefffd-7ab1-47f5-a2d6-ed3b060612b0
 management:
-  docChecksum: ae99d09a9ee6cd57897908c0fede1197
+  docChecksum: abc866b3ed87e0910c471fef98044ece
   docVersion: 0.1.0
   speakeasyVersion: internal
   generationVersion: 2.250.2
-  releaseVersion: 0.0.7
-  configChecksum: c0b31d838aec50634f5681cac4bd4036
+  releaseVersion: 0.0.8
+  configChecksum: 0357f6d9c0565cc9c05ea36ffc256f94
   repoURL: https://github.com/inkeep/chat-api-ts.git
   repoSubDirectory: .
   installationURL: https://github.com/inkeep/chat-api-ts
