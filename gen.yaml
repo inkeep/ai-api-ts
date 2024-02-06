@@ -9,7 +9,7 @@ generation:
     nameResolutionDec2023: true
     parameterOrderingFeb2024: true
 typescript:
-  version: 0.2.0
+  version: 0.1.0
   author: Inkeep
   clientServerStatusCodesAsErrors: true
   flattenGlobalSecurity: true
@@ -24,5 +24,5 @@ typescript:
   inputModelSuffix: input
   maxMethodParams: 4
   outputModelSuffix: output
-  packageName: '@inkeep/chat-api-ts'
+  packageName: '@inkeep/chat-api'
   templateVersion: v2
