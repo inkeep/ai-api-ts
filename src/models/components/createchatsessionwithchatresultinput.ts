@@ -5,49 +5,19 @@
 import { ChatSessionInput, ChatSessionInput$ } from "./chatsessioninput";
 import { z } from "zod";
 
-export enum Two {
-    Auto = "auto",
-}
-
-export enum One {
-    Turbo = "turbo",
-}
-
-export type ChatMode = One | Two;
-
 export type CreateChatSessionWithChatResultInput = {
     integrationId: string;
     chatSession: ChatSessionInput;
-    chatMode?: One | Two | undefined;
+    chatMode?: "turbo" | undefined;
     stream?: boolean | undefined;
 };
-
-/** @internal */
-export const Two$ = z.nativeEnum(Two);
-
-/** @internal */
-export const One$ = z.nativeEnum(One);
-
-/** @internal */
-export namespace ChatMode$ {
-    export type Inbound = One | Two;
-
-    export type Outbound = One | Two;
-
-    export const inboundSchema: z.ZodType<ChatMode, z.ZodTypeDef, Inbound> = z.union([One$, Two$]);
-
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, ChatMode> = z.union([
-        One$,
-        Two$,
-    ]);
-}
 
 /** @internal */
 export namespace CreateChatSessionWithChatResultInput$ {
     export type Inbound = {
         integration_id: string;
         chat_session: ChatSessionInput$.Inbound;
-        chat_mode?: One | Two | undefined;
+        chat_mode?: "turbo" | undefined;
         stream?: boolean | undefined;
     };
 
@@ -59,7 +29,7 @@ export namespace CreateChatSessionWithChatResultInput$ {
         .object({
             integration_id: z.string(),
             chat_session: ChatSessionInput$.inboundSchema,
-            chat_mode: z.union([One$, Two$]).optional(),
+            chat_mode: z.literal("turbo").optional(),
             stream: z.boolean().default(false),
         })
         .transform((v) => {
@@ -74,7 +44,7 @@ export namespace CreateChatSessionWithChatResultInput$ {
     export type Outbound = {
         integration_id: string;
         chat_session: ChatSessionInput$.Outbound;
-        chat_mode?: One | Two | undefined;
+        chat_mode?: "turbo" | undefined;
         stream: boolean;
     };
 
@@ -86,7 +56,7 @@ export namespace CreateChatSessionWithChatResultInput$ {
         .object({
             integrationId: z.string(),
             chatSession: ChatSessionInput$.outboundSchema,
-            chatMode: z.union([One$, Two$]).optional(),
+            chatMode: z.literal("turbo").optional(),
             stream: z.boolean().default(false),
         })
         .transform((v) => {
