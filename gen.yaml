@@ -9,8 +9,8 @@ generation:
     nameResolutionDec2023: true
     parameterOrderingFeb2024: true
 typescript:
-  version: 0.1.0
-  author: Inkeep
+  version: 0.1.1
+  author: Nick Gomez
   clientServerStatusCodesAsErrors: true
   flattenGlobalSecurity: true
   imports:

@@ -2,7 +2,7 @@ openapi: 3.1.0
 info:
   title: Inkeep Search and Chat API
   description: Leverage the Inkeep APIs to create your own AI-powered search and chat experiences built on top of your own content.
-  version: 0.1.0
+  version: 0.1.1
 servers:
   - url: https://api.inkeep.com
     description: Production server
@@ -86,24 +86,6 @@ components:
           type: string
         message:
           $ref: '#/components/schemas/AssistantMessage'
-    # ChatResultStream:
-    #   title: ChatResultStream
-    #   required:
-    #     - event
-    #     - data
-    #   type: object
-    #   properties:
-    #     event:
-    #       title: Event
-    #       enum:
-    #         - message_chunk
-    #         - records_cited
-    #       type: string
-    #     data:
-    #       title: Data
-    #       oneOf:
-    #         - $ref: '#/components/schemas/MessageChunk'
-    #         - $ref: '#/components/schemas/RecordsCited'
     ChatResultStreamEvent:
       title: Chat Result Stream Event
       oneOf:
@@ -115,16 +97,6 @@ components:
         mapping:
           message_chunk: '#/components/schemas/ChatResultMessageChunkEvent'
           records_cited: '#/components/schemas/ChatResultRecordsCitedEvent'
-    # ServerSideEvent:
-    #   type: object
-    #   required: [event, data]
-    #   properties:
-    #     event:
-    #       type: string
-    #       description: The type of event being sent.
-    #     data:
-    #       type: object
-    #       description: The payload of the event
     ChatResultMessageChunkEvent:
       description: A server-sent event containing a chunk of the message.
       type: object
@@ -289,7 +261,7 @@ components:
           items:
             type: string
     RecordsCited:
-      title: Record Cited
+      title: Records Cited
       required:
         - citations
       type: object
@@ -309,7 +281,7 @@ components:
         - title: other
           type: string
     ValidationError:
-      title: ValidationError
+      title: Validation Error
       required:
         - loc
         - msg
