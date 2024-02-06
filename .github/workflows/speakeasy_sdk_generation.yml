@@ -22,5 +22,6 @@ jobs:
       publish_typescript: true
       force: ${{ github.event.inputs.force }}
     secrets:
+      github_access_token: ${{ secrets.GITHUB_TOKEN }}
       npm_token: ${{ secrets.NPM_TOKEN }}
       speakeasy_api_key: ${{ secrets.SPEAKEASY_API_KEY }}
