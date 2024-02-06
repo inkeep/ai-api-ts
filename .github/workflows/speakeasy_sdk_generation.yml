@@ -1,30 +1,32 @@
 name: Generate
+
 permissions:
   checks: write
   contents: write
   pull-requests: write
   statuses: write
-"on":
+
+on:
   workflow_dispatch:
     inputs:
       force:
-        description: Force generation of SDKs
+        description: "Force the generation of the SDKs"
         type: boolean
         default: false
   schedule:
     - cron: 0 0 * * *
+
 jobs:
   generate:
     uses: speakeasy-api/sdk-generation-action/.github/workflows/sdk-generation.yaml@v14
     with:
-      force: ${{ github.event.inputs.force }}
-      languages: |
-        - typescript
-      mode: direct
+      speakeasy_version: latest
       openapi_docs: |
         - https://raw.githubusercontent.com/inkeep/chat-api-openapi-schema/main/openapi.yaml
+      languages: |
+        - typescript
       publish_typescript: true
-      speakeasy_version: latest
+      force: ${{ github.event.inputs.force }}
     secrets:
       github_access_token: ${{ secrets.GITHUB_TOKEN }}
       npm_token: ${{ secrets.NPM_TOKEN }}
