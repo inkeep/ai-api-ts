@@ -21,6 +21,7 @@ jobs:
     uses: speakeasy-api/sdk-generation-action/.github/workflows/sdk-generation.yaml@v14
     with:
       speakeasy_version: latest
+      create_release: true
       openapi_docs: |
         - https://raw.githubusercontent.com/inkeep/chat-api-openapi-schema/main/openapi.yaml
       languages: |
