@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 34eefffd-7ab1-47f5-a2d6-ed3b060612b0
 management:
-  docChecksum: 43d55285662f47766a8a1c06a8e9f868
+  docChecksum: 99f75aacc47d70e42c6ef1df5f88d9b1
   docVersion: 0.1.0
   speakeasyVersion: internal
   generationVersion: 2.250.2
-  releaseVersion: 0.0.4
-  configChecksum: e31d5e78107fa98b3d0c619c4fd3762e
+  releaseVersion: 0.0.5
+  configChecksum: a57b0b63bc40e9dc1dfe35b39f3038ac
   repoURL: https://github.com/inkeep/chat-api-ts.git
   repoSubDirectory: .
   installationURL: https://github.com/inkeep/chat-api-ts
@@ -49,7 +49,7 @@ generatedFiles:
   - tsconfig.json
   - src/models/operations/create.ts
   - src/models/operations/continue.ts
-  - src/models/components/chatresultstreamevent.ts
+  - src/models/components/chatresultstream.ts
   - src/models/components/chatresultmessagechunkevent.ts
   - src/models/components/messagechunk.ts
   - src/models/components/chatresultrecordscitedevent.ts
@@ -74,7 +74,7 @@ generatedFiles:
   - docs/models/operations/createresponse.md
   - docs/models/operations/continuerequest.md
   - docs/models/operations/continueresponse.md
-  - docs/models/components/chatresultstreamevent.md
+  - docs/models/components/chatresultstream.md
   - docs/models/components/chatresultmessagechunkevent.md
   - docs/models/components/finishreason.md
   - docs/models/components/messagechunk.md
@@ -88,6 +88,9 @@ generatedFiles:
   - docs/models/components/assistantmessageresponse.md
   - docs/models/components/loc.md
   - docs/models/components/validationerror.md
+  - docs/models/components/two.md
+  - docs/models/components/one.md
+  - docs/models/components/chatmode.md
   - docs/models/components/createchatsessionwithchatresultinput.md
   - docs/models/components/chatsessioninput.md
   - docs/models/components/message.md

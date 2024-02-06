@@ -31,7 +31,7 @@ export type ContinueResponse = {
     /**
      * Successful Response
      */
-    chatResultStreamEvent?: EventStream<components.ChatResultStreamEvent> | undefined;
+    chatResultStream?: EventStream<components.ChatResultStream> | undefined;
 };
 
 /** @internal */
@@ -80,7 +80,7 @@ export namespace ContinueResponse$ {
         StatusCode: number;
         RawResponse: Response;
         ChatResult?: components.ChatResult$.Inbound | undefined;
-        ChatResultStreamEvent?: ReadableStream<Uint8Array> | undefined;
+        ChatResultStream?: ReadableStream<Uint8Array> | undefined;
     };
 
     export const inboundSchema: z.ZodType<ContinueResponse, z.ZodTypeDef, Inbound> = z
@@ -89,13 +89,13 @@ export namespace ContinueResponse$ {
             StatusCode: z.number().int(),
             RawResponse: z.instanceof(Response),
             ChatResult: components.ChatResult$.inboundSchema.optional(),
-            ChatResultStreamEvent: z
+            ChatResultStream: z
                 .instanceof(ReadableStream<Uint8Array>)
                 .transform((stream) => {
                     return new EventStream({
                         stream,
                         decoder(rawEvent) {
-                            const schema = components.ChatResultStreamEvent$.inboundSchema;
+                            const schema = components.ChatResultStream$.inboundSchema;
                             return schema.parse(rawEvent);
                         },
                     });
@@ -108,9 +108,9 @@ export namespace ContinueResponse$ {
                 statusCode: v.StatusCode,
                 rawResponse: v.RawResponse,
                 ...(v.ChatResult === undefined ? null : { chatResult: v.ChatResult }),
-                ...(v.ChatResultStreamEvent === undefined
+                ...(v.ChatResultStream === undefined
                     ? null
-                    : { chatResultStreamEvent: v.ChatResultStreamEvent }),
+                    : { chatResultStream: v.ChatResultStream }),
             };
         });
 
@@ -119,7 +119,7 @@ export namespace ContinueResponse$ {
         StatusCode: number;
         RawResponse: never;
         ChatResult?: components.ChatResult$.Outbound | undefined;
-        ChatResultStreamEvent?: never | undefined;
+        ChatResultStream?: never | undefined;
     };
 
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, ContinueResponse> = z
@@ -130,7 +130,7 @@ export namespace ContinueResponse$ {
                 throw new Error("Response cannot be serialized");
             }),
             chatResult: components.ChatResult$.outboundSchema.optional(),
-            chatResultStreamEvent: z.never().optional(),
+            chatResultStream: z.never().optional(),
         })
         .transform((v) => {
             return {
@@ -138,9 +138,9 @@ export namespace ContinueResponse$ {
                 StatusCode: v.statusCode,
                 RawResponse: v.rawResponse,
                 ...(v.chatResult === undefined ? null : { ChatResult: v.chatResult }),
-                ...(v.chatResultStreamEvent === undefined
+                ...(v.chatResultStream === undefined
                     ? null
-                    : { ChatResultStreamEvent: v.chatResultStreamEvent }),
+                    : { ChatResultStream: v.chatResultStream }),
             };
         });
 }

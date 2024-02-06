@@ -7,7 +7,7 @@ export * from "./assistantmessageresponse";
 export * from "./chatresult";
 export * from "./chatresultmessagechunkevent";
 export * from "./chatresultrecordscitedevent";
-export * from "./chatresultstreamevent";
+export * from "./chatresultstream";
 export * from "./chatsessioninput";
 export * from "./citation";
 export * from "./continuechatsessionwithchatresultinput";

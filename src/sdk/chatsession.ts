@@ -90,7 +90,7 @@ export class ChatSession extends ClientSDK {
         } else if (this.matchResponse(response, 200, "text/event-stream")) {
             const result = operations.CreateResponse$.inboundSchema.parse({
                 ...responseFields$,
-                ChatResultStreamEvent: response.body,
+                ChatResultStream: response.body,
             });
             return result;
         } else if (this.matchResponse(response, 422, "application/json")) {
@@ -180,7 +180,7 @@ export class ChatSession extends ClientSDK {
         } else if (this.matchResponse(response, 200, "text/event-stream")) {
             const result = operations.ContinueResponse$.inboundSchema.parse({
                 ...responseFields$,
-                ChatResultStreamEvent: response.body,
+                ChatResultStream: response.body,
             });
             return result;
         } else if (this.matchResponse(response, 422, "application/json")) {
