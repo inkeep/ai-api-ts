@@ -17,7 +17,7 @@ Create Chat Session and receive a Chat Result
 ### Example Usage
 
 ```typescript
-import { InkeepClient } from "chat-api-ts";
+import { InkeepClient } from "@inkeep/chat-api-ts";
 
 async function run() {
   const sdk = new InkeepClient({
@@ -71,7 +71,7 @@ Continue Chat Session and receive a Chat Result
 ### Example Usage
 
 ```typescript
-import { InkeepClient } from "chat-api-ts";
+import { InkeepClient } from "@inkeep/chat-api-ts";
 
 async function run() {
   const sdk = new InkeepClient({
