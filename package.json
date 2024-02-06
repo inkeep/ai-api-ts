@@ -1,7 +1,7 @@
 {
   "type": "commonjs",
-  "name": "@inkeep/chat-api-ts",
-  "version": "0.0.1",
+  "name": "@inkeep/chat-api",
+  "version": "0.0.3",
   "author": "Inkeep",
   "main": "./index.js",
   "sideEffects": false,
