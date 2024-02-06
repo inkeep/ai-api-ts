@@ -16,8 +16,8 @@ jobs:
     with:
       speakeasy_version: latest
       openapi_docs: |
-        - [https://github.com/inkeep/chat-api-openapi-schema]
-      languages: |-
+        - https://github.com/inkeep/chat-api-openapi-schema/blob/main/openapi.yaml
+      languages: |
         - typescript
       publish_typescript: true
       force: ${{ github.event.inputs.force }}
