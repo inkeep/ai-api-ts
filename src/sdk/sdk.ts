@@ -20,7 +20,7 @@ export enum ContinueChatSessionWithChatResultAcceptEnum {
     textEventStream = "text/event-stream",
 }
 
-export class SDK extends ClientSDK {
+export class InkeepClient extends ClientSDK {
     private readonly options$: SDKOptions;
 
     constructor(options: SDKOptions = {}) {

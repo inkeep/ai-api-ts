@@ -22,13 +22,13 @@ It has been generated successfully based on your OpenAPI spec. However, it is no
 ### NPM
 
 ```bash
-npm add https://github.com/inkeep/chat-api-ts
+npm add chat-api-ts
 ```
 
 ### Yarn
 
 ```bash
-yarn add https://github.com/inkeep/chat-api-ts
+yarn add chat-api-ts
 ```
 <!-- End SDK Installation [installation] -->
 
@@ -44,10 +44,10 @@ For supported JavaScript runtimes, please consult [RUNTIMES.md](RUNTIMES.md).
 ### Example
 
 ```typescript
-import { SDK } from "openapi";
+import { InkeepClient } from "chat-api-ts";
 
 async function run() {
-    const sdk = new SDK({
+    const sdk = new InkeepClient({
         apiKey: "<YOUR_BEARER_TOKEN_HERE>",
     });
 
@@ -75,10 +75,10 @@ run();
 <!-- Start Available Resources and Operations [operations] -->
 ## Available Resources and Operations
 
-### [SDK](docs/sdks/sdk/README.md)
+### [InkeepClient SDK](docs/sdks/inkeepclient/README.md)
 
-* [createChatSessionWithChatResult](docs/sdks/sdk/README.md#createchatsessionwithchatresult) - Create Chat Session and receive a Chat Result
-* [continueChatSessionWithChatResult](docs/sdks/sdk/README.md#continuechatsessionwithchatresult) - Continue Chat Session and receive a Chat Result
+* [createChatSessionWithChatResult](docs/sdks/inkeepclient/README.md#createchatsessionwithchatresult) - Create Chat Session and receive a Chat Result
+* [continueChatSessionWithChatResult](docs/sdks/inkeepclient/README.md#continuechatsessionwithchatresult) - Continue Chat Session and receive a Chat Result
 <!-- End Available Resources and Operations [operations] -->
 
 <!-- Start Server-sent event streaming [eventstream] -->
@@ -91,10 +91,10 @@ terminate when the server no longer has any events to send and closes the
 underlying connection.
 
 ```typescript
-import { SDK } from "openapi";
+import { InkeepClient } from "chat-api-ts";
 
 async function run() {
-    const sdk = new SDK({
+    const sdk = new InkeepClient({
         apiKey: "<YOUR_BEARER_TOKEN_HERE>",
     });
 
@@ -135,11 +135,11 @@ All SDK methods return a response object or throw an error. If Error objects are
 Example
 
 ```typescript
-import { SDK } from "openapi";
-import * as errors from "openapi/models/errors";
+import { InkeepClient } from "chat-api-ts";
+import * as errors from "chat-api-ts/models/errors";
 
 async function run() {
-    const sdk = new SDK({
+    const sdk = new InkeepClient({
         apiKey: "<YOUR_BEARER_TOKEN_HERE>",
     });
 
@@ -189,10 +189,10 @@ You can override the default server globally by passing a server index to the `s
 | 0 | `https://api.inkeep.com` | None |
 
 ```typescript
-import { SDK } from "openapi";
+import { InkeepClient } from "chat-api-ts";
 
 async function run() {
-    const sdk = new SDK({
+    const sdk = new InkeepClient({
         serverIdx: 0,
         apiKey: "<YOUR_BEARER_TOKEN_HERE>",
     });
@@ -223,10 +223,10 @@ run();
 The default server can also be overridden globally by passing a URL to the `serverURL` optional parameter when initializing the SDK client instance. For example:
 
 ```typescript
-import { SDK } from "openapi";
+import { InkeepClient } from "chat-api-ts";
 
 async function run() {
-    const sdk = new SDK({
+    const sdk = new InkeepClient({
         serverURL: "https://api.inkeep.com",
         apiKey: "<YOUR_BEARER_TOKEN_HERE>",
     });
@@ -270,8 +270,8 @@ custom header and a timeout to requests and how to use the `"requestError"` hook
 to log errors:
 
 ```typescript
-import { SDK } from "openapi";
-import { HTTPClient } from "openapi/lib/http";
+import { InkeepClient } from "chat-api-ts";
+import { HTTPClient } from "chat-api-ts/lib/http";
 
 const httpClient = new HTTPClient({
   // fetcher takes a function that has the same signature as native `fetch`.
@@ -297,7 +297,7 @@ httpClient.addHook("requestError", (error, request) => {
   console.groupEnd();
 });
 
-const sdk = new SDK({ httpClient });
+const sdk = new InkeepClient({ httpClient });
 ```
 <!-- End Custom HTTP Client [http-client] -->
 
@@ -314,10 +314,10 @@ This SDK supports the following security scheme globally:
 
 To authenticate with the API the `apiKey` parameter must be set when initializing the SDK client instance. For example:
 ```typescript
-import { SDK } from "openapi";
+import { InkeepClient } from "chat-api-ts";
 
 async function run() {
-    const sdk = new SDK({
+    const sdk = new InkeepClient({
         apiKey: "<YOUR_BEARER_TOKEN_HERE>",
     });
 

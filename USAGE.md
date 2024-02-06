@@ -1,9 +1,9 @@
 <!-- Start SDK Example Usage [usage] -->
 ```typescript
-import { SDK } from "openapi";
+import { InkeepClient } from "chat-api-ts";
 
 async function run() {
-    const sdk = new SDK({
+    const sdk = new InkeepClient({
         apiKey: "<YOUR_BEARER_TOKEN_HERE>",
     });
 
