@@ -1,4 +1,4 @@
-# SDK
+# InkeepClient SDK
 
 
 ## Overview
@@ -17,10 +17,10 @@ Create Chat Session and receive a Chat Result
 ### Example Usage
 
 ```typescript
-import { SDK } from "openapi";
+import { InkeepClient } from "chat-api-ts";
 
 async function run() {
-  const sdk = new SDK({
+  const sdk = new InkeepClient({
     apiKey: "<YOUR_BEARER_TOKEN_HERE>",
   });
 
@@ -71,10 +71,10 @@ Continue Chat Session and receive a Chat Result
 ### Example Usage
 
 ```typescript
-import { SDK } from "openapi";
+import { InkeepClient } from "chat-api-ts";
 
 async function run() {
-  const sdk = new SDK({
+  const sdk = new InkeepClient({
     apiKey: "<YOUR_BEARER_TOKEN_HERE>",
   });
 
