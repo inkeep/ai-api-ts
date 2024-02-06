@@ -1,0 +1,27 @@
+name: Generate
+
+on:
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Force the generation of the SDKs"
+        type: boolean
+        default: false
+  schedule:
+    - cron: 0 0 * * *
+
+jobs:
+  generate:
+    uses: speakeasy-api/sdk-generation-action/.github/workflows/sdk-generation.yaml@v14
+    with:
+      speakeasy_version: latest
+      openapi_docs: |
+        - [https://github.com/inkeep/chat-api-openapi-schema]
+      languages: |-
+        - typescript
+      publish_typescript: true
+      force: ${{ github.event.inputs.force }}
+    secrets:
+      github_access_token: ${{ secrets.GITHUB_TOKEN }}
+      npm_token: ${{ secrets.NPM_TOKEN }}
+      speakeasy_api_key: ${{ secrets.SPEAKEASY_API_KEY }}
