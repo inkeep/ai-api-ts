@@ -24,5 +24,6 @@ typescript:
   inputModelSuffix: input
   maxMethodParams: 4
   outputModelSuffix: output
-  packageName: chat-api-ts
+  packageName: "@inkeep/chat-api-ts"
   templateVersion: v2
+  
