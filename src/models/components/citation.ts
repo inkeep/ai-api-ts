@@ -8,7 +8,7 @@ import { z } from "zod";
 export type Citation = {
     number: number;
     record: RecordT;
-    hitUrl?: string | undefined;
+    hitUrl?: string | null | undefined;
 };
 
 /** @internal */
@@ -16,14 +16,14 @@ export namespace Citation$ {
     export type Inbound = {
         number: number;
         record: RecordT$.Inbound;
-        hit_url?: string | undefined;
+        hit_url?: string | null | undefined;
     };
 
     export const inboundSchema: z.ZodType<Citation, z.ZodTypeDef, Inbound> = z
         .object({
             number: z.number().int(),
             record: RecordT$.inboundSchema,
-            hit_url: z.string().optional(),
+            hit_url: z.nullable(z.string()).optional(),
         })
         .transform((v) => {
             return {
@@ -36,14 +36,14 @@ export namespace Citation$ {
     export type Outbound = {
         number: number;
         record: RecordT$.Outbound;
-        hit_url?: string | undefined;
+        hit_url?: string | null | undefined;
     };
 
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Citation> = z
         .object({
             number: z.number().int(),
             record: RecordT$.outboundSchema,
-            hitUrl: z.string().optional(),
+            hitUrl: z.nullable(z.string()).optional(),
         })
         .transform((v) => {
             return {

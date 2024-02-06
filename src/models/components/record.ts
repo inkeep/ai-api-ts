@@ -10,26 +10,26 @@ export type RecordT = {
      * The type of record
      */
     type: RecordType;
-    url?: string | undefined;
-    title?: string | undefined;
-    breadcrumbs?: Array<string> | undefined;
+    url?: string | null | undefined;
+    title?: string | null | undefined;
+    breadcrumbs?: Array<string> | null | undefined;
 };
 
 /** @internal */
 export namespace RecordT$ {
     export type Inbound = {
         type: RecordType$.Inbound;
-        url?: string | undefined;
-        title?: string | undefined;
-        breadcrumbs?: Array<string> | undefined;
+        url?: string | null | undefined;
+        title?: string | null | undefined;
+        breadcrumbs?: Array<string> | null | undefined;
     };
 
     export const inboundSchema: z.ZodType<RecordT, z.ZodTypeDef, Inbound> = z
         .object({
             type: RecordType$.inboundSchema,
-            url: z.string().optional(),
-            title: z.string().optional(),
-            breadcrumbs: z.array(z.string()).optional(),
+            url: z.nullable(z.string()).optional(),
+            title: z.nullable(z.string()).optional(),
+            breadcrumbs: z.nullable(z.array(z.string())).optional(),
         })
         .transform((v) => {
             return {
@@ -42,17 +42,17 @@ export namespace RecordT$ {
 
     export type Outbound = {
         type: RecordType$.Outbound;
-        url?: string | undefined;
-        title?: string | undefined;
-        breadcrumbs?: Array<string> | undefined;
+        url?: string | null | undefined;
+        title?: string | null | undefined;
+        breadcrumbs?: Array<string> | null | undefined;
     };
 
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, RecordT> = z
         .object({
             type: RecordType$.outboundSchema,
-            url: z.string().optional(),
-            title: z.string().optional(),
-            breadcrumbs: z.array(z.string()).optional(),
+            url: z.nullable(z.string()).optional(),
+            title: z.nullable(z.string()).optional(),
+            breadcrumbs: z.nullable(z.array(z.string())).optional(),
         })
         .transform((v) => {
             return {

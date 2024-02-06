@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 34eefffd-7ab1-47f5-a2d6-ed3b060612b0
 management:
-  docChecksum: 1d2caf7914fed47062f868a9cc457a92
+  docChecksum: 42038dca1658739691fe3ea717bcb5b8
   docVersion: 0.1.0
   speakeasyVersion: internal
-  generationVersion: 2.250.11
-  releaseVersion: 0.1.0
-  configChecksum: fc092c82a0f5f2c022b96d0a35f98344
+  generationVersion: 2.250.12
+  releaseVersion: 0.1.1
+  configChecksum: 2744be005cdde5cc5c8613e968e07430
   repoURL: https://github.com/inkeep/ai-api-ts.git
   repoSubDirectory: .
   installationURL: https://github.com/inkeep/ai-api-ts
