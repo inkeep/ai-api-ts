@@ -1,7 +1,7 @@
 <!-- Start SDK Example Usage [usage] -->
 ```typescript
-import { InkeepClient } from "@inkeep/chat-api";
-import { ChatMode } from "@inkeep/chat-api/models/components";
+import { InkeepClient } from "@inkeep/chat-api-ts";
+import { ChatMode } from "@inkeep/chat-api-ts/models/components";
 
 async function run() {
     const sdk = new InkeepClient({
