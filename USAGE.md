@@ -1,9 +1,9 @@
 <!-- Start SDK Example Usage [usage] -->
 ```typescript
-import { InkeepClient } from "@inkeep/chat-api";
+import { InkeepAI } from "@inkeep/ai-api";
 
 async function run() {
-    const sdk = new InkeepClient({
+    const sdk = new InkeepAI({
         apiKey: "<YOUR_BEARER_TOKEN_HERE>",
     });
 

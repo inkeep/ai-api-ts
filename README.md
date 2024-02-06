@@ -13,13 +13,13 @@
 ### NPM
 
 ```bash
-npm add @inkeep/chat-api
+npm add @inkeep/ai-api
 ```
 
 ### Yarn
 
 ```bash
-yarn add @inkeep/chat-api
+yarn add @inkeep/ai-api
 ```
 <!-- End SDK Installation [installation] -->
 
@@ -35,10 +35,10 @@ For supported JavaScript runtimes, please consult [RUNTIMES.md](RUNTIMES.md).
 ### Example
 
 ```typescript
-import { InkeepClient } from "@inkeep/chat-api";
+import { InkeepAI } from "@inkeep/ai-api";
 
 async function run() {
-    const sdk = new InkeepClient({
+    const sdk = new InkeepAI({
         apiKey: "<YOUR_BEARER_TOKEN_HERE>",
     });
 
@@ -82,10 +82,10 @@ terminate when the server no longer has any events to send and closes the
 underlying connection.
 
 ```typescript
-import { InkeepClient } from "@inkeep/chat-api";
+import { InkeepAI } from "@inkeep/ai-api";
 
 async function run() {
-    const sdk = new InkeepClient({
+    const sdk = new InkeepAI({
         apiKey: "<YOUR_BEARER_TOKEN_HERE>",
     });
 
@@ -126,11 +126,11 @@ All SDK methods return a response object or throw an error. If Error objects are
 Example
 
 ```typescript
-import { InkeepClient } from "@inkeep/chat-api";
-import * as errors from "@inkeep/chat-api/models/errors";
+import { InkeepAI } from "@inkeep/ai-api";
+import * as errors from "@inkeep/ai-api/models/errors";
 
 async function run() {
-    const sdk = new InkeepClient({
+    const sdk = new InkeepAI({
         apiKey: "<YOUR_BEARER_TOKEN_HERE>",
     });
 
@@ -180,10 +180,10 @@ You can override the default server globally by passing a server index to the `s
 | 0 | `https://api.inkeep.com` | None |
 
 ```typescript
-import { InkeepClient } from "@inkeep/chat-api";
+import { InkeepAI } from "@inkeep/ai-api";
 
 async function run() {
-    const sdk = new InkeepClient({
+    const sdk = new InkeepAI({
         serverIdx: 0,
         apiKey: "<YOUR_BEARER_TOKEN_HERE>",
     });
@@ -214,10 +214,10 @@ run();
 The default server can also be overridden globally by passing a URL to the `serverURL` optional parameter when initializing the SDK client instance. For example:
 
 ```typescript
-import { InkeepClient } from "@inkeep/chat-api";
+import { InkeepAI } from "@inkeep/ai-api";
 
 async function run() {
-    const sdk = new InkeepClient({
+    const sdk = new InkeepAI({
         serverURL: "https://api.inkeep.com",
         apiKey: "<YOUR_BEARER_TOKEN_HERE>",
     });
@@ -261,8 +261,8 @@ custom header and a timeout to requests and how to use the `"requestError"` hook
 to log errors:
 
 ```typescript
-import { InkeepClient } from "@inkeep/chat-api";
-import { HTTPClient } from "@inkeep/chat-api/lib/http";
+import { InkeepAI } from "@inkeep/ai-api";
+import { HTTPClient } from "@inkeep/ai-api/lib/http";
 
 const httpClient = new HTTPClient({
   // fetcher takes a function that has the same signature as native `fetch`.
@@ -288,7 +288,7 @@ httpClient.addHook("requestError", (error, request) => {
   console.groupEnd();
 });
 
-const sdk = new InkeepClient({ httpClient });
+const sdk = new InkeepAI({ httpClient });
 ```
 <!-- End Custom HTTP Client [http-client] -->
 
@@ -305,10 +305,10 @@ This SDK supports the following security scheme globally:
 
 To authenticate with the API the `apiKey` parameter must be set when initializing the SDK client instance. For example:
 ```typescript
-import { InkeepClient } from "@inkeep/chat-api";
+import { InkeepAI } from "@inkeep/ai-api";
 
 async function run() {
-    const sdk = new InkeepClient({
+    const sdk = new InkeepAI({
         apiKey: "<YOUR_BEARER_TOKEN_HERE>",
     });
 

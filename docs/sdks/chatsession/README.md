@@ -17,10 +17,10 @@ Create Chat Session and receive a Chat Result
 ### Example Usage
 
 ```typescript
-import { InkeepClient } from "@inkeep/chat-api";
+import { InkeepAI } from "@inkeep/ai-api";
 
 async function run() {
-  const sdk = new InkeepClient({
+  const sdk = new InkeepAI({
     apiKey: "<YOUR_BEARER_TOKEN_HERE>",
   });
 
@@ -71,10 +71,10 @@ Continue Chat Session and receive a Chat Result
 ### Example Usage
 
 ```typescript
-import { InkeepClient } from "@inkeep/chat-api";
+import { InkeepAI } from "@inkeep/ai-api";
 
 async function run() {
-  const sdk = new InkeepClient({
+  const sdk = new InkeepAI({
     apiKey: "<YOUR_BEARER_TOKEN_HERE>",
   });
 

@@ -5,11 +5,11 @@ management:
   docVersion: 0.1.0
   speakeasyVersion: internal
   generationVersion: 2.250.2
-  releaseVersion: 0.0.8
-  configChecksum: 0357f6d9c0565cc9c05ea36ffc256f94
-  repoURL: https://github.com/inkeep/chat-api-ts.git
+  releaseVersion: 0.0.1
+  configChecksum: 517d0415ed0d3b5cd9c7e6b14806d61d
+  repoURL: https://github.com/inkeep/ai-api-ts.git
   repoSubDirectory: .
-  installationURL: https://github.com/inkeep/chat-api-ts
+  installationURL: https://github.com/inkeep/ai-api-ts
   published: true
 features:
   typescript:
@@ -96,7 +96,7 @@ generatedFiles:
   - docs/models/components/continuechatsessionwithchatresultinput.md
   - docs/models/components/security.md
   - docs/models/errors/httpvalidationerror.md
-  - docs/sdks/inkeepclient/README.md
+  - docs/sdks/inkeepai/README.md
   - docs/sdks/chatsession/README.md
   - USAGE.md
   - .gitattributes

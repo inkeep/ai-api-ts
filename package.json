@@ -1,13 +1,13 @@
 {
   "type": "commonjs",
-  "name": "@inkeep/chat-api",
-  "version": "0.0.8",
-  "author": "Inkeep",
+  "name": "@inkeep/ai-api",
+  "version": "0.0.1",
+  "author": "Nick Gomez",
   "main": "./index.js",
   "sideEffects": false,
   "repository": {
     "type": "git",
-    "url": "https://github.com/inkeep/chat-api-ts.git",
+    "url": "https://github.com/inkeep/ai-api-ts.git",
     "directory": "."
   },
   "scripts": {

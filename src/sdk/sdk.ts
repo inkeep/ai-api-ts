@@ -7,7 +7,7 @@ import { HTTPClient } from "../lib/http";
 import { ClientSDK } from "../lib/sdks";
 import { ChatSession } from "./chatsession";
 
-export class InkeepClient extends ClientSDK {
+export class InkeepAI extends ClientSDK {
     private readonly options$: SDKOptions;
 
     constructor(options: SDKOptions = {}) {

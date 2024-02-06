@@ -1,4 +1,4 @@
-# InkeepClient SDK
+# InkeepAI SDK
 
 
 ## Overview
