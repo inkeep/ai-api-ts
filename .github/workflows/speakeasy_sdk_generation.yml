@@ -16,12 +16,11 @@ jobs:
     with:
       speakeasy_version: latest
       openapi_docs: |
-        - https://github.com/inkeep/chat-api-openapi-schema/blob/main/openapi.yaml
+        - location: https://github.com/inkeep/chat-api-openapi-schema/blob/main/openapi.yaml
       languages: |
         - typescript
       publish_typescript: true
       force: ${{ github.event.inputs.force }}
     secrets:
-      github_access_token: ${{ secrets.GITHUB_TOKEN }}
       npm_token: ${{ secrets.NPM_TOKEN }}
       speakeasy_api_key: ${{ secrets.SPEAKEASY_API_KEY }}
