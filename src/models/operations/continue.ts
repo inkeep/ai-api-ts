@@ -6,12 +6,12 @@ import { EventStream } from "../../lib/event-streams";
 import * as components from "../../models/components";
 import { z } from "zod";
 
-export type ContinueChatSessionWithChatResultRequest = {
+export type ContinueRequest = {
     chatSessionId: string;
     continueChatSessionWithChatResultInput: components.ContinueChatSessionWithChatResultInput;
 };
 
-export type ContinueChatSessionWithChatResultResponse = {
+export type ContinueResponse = {
     /**
      * HTTP response content type for this operation
      */
@@ -35,17 +35,13 @@ export type ContinueChatSessionWithChatResultResponse = {
 };
 
 /** @internal */
-export namespace ContinueChatSessionWithChatResultRequest$ {
+export namespace ContinueRequest$ {
     export type Inbound = {
         chat_session_id: string;
         ContinueChatSessionWithChatResultInput: components.ContinueChatSessionWithChatResultInput$.Inbound;
     };
 
-    export const inboundSchema: z.ZodType<
-        ContinueChatSessionWithChatResultRequest,
-        z.ZodTypeDef,
-        Inbound
-    > = z
+    export const inboundSchema: z.ZodType<ContinueRequest, z.ZodTypeDef, Inbound> = z
         .object({
             chat_session_id: z.string(),
             ContinueChatSessionWithChatResultInput:
@@ -63,11 +59,7 @@ export namespace ContinueChatSessionWithChatResultRequest$ {
         ContinueChatSessionWithChatResultInput: components.ContinueChatSessionWithChatResultInput$.Outbound;
     };
 
-    export const outboundSchema: z.ZodType<
-        Outbound,
-        z.ZodTypeDef,
-        ContinueChatSessionWithChatResultRequest
-    > = z
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, ContinueRequest> = z
         .object({
             chatSessionId: z.string(),
             continueChatSessionWithChatResultInput:
@@ -82,7 +74,7 @@ export namespace ContinueChatSessionWithChatResultRequest$ {
 }
 
 /** @internal */
-export namespace ContinueChatSessionWithChatResultResponse$ {
+export namespace ContinueResponse$ {
     export type Inbound = {
         ContentType: string;
         StatusCode: number;
@@ -91,11 +83,7 @@ export namespace ContinueChatSessionWithChatResultResponse$ {
         ChatResultStreamEvent?: ReadableStream<Uint8Array> | undefined;
     };
 
-    export const inboundSchema: z.ZodType<
-        ContinueChatSessionWithChatResultResponse,
-        z.ZodTypeDef,
-        Inbound
-    > = z
+    export const inboundSchema: z.ZodType<ContinueResponse, z.ZodTypeDef, Inbound> = z
         .object({
             ContentType: z.string(),
             StatusCode: z.number().int(),
@@ -134,11 +122,7 @@ export namespace ContinueChatSessionWithChatResultResponse$ {
         ChatResultStreamEvent?: never | undefined;
     };
 
-    export const outboundSchema: z.ZodType<
-        Outbound,
-        z.ZodTypeDef,
-        ContinueChatSessionWithChatResultResponse
-    > = z
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, ContinueResponse> = z
         .object({
             contentType: z.string(),
             statusCode: z.number().int(),

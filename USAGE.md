@@ -1,13 +1,14 @@
 <!-- Start SDK Example Usage [usage] -->
 ```typescript
-import { InkeepClient } from "@inkeep/chat-api-ts";
+import { InkeepClient } from "@inkeep/chat-api";
+import { ChatMode } from "@inkeep/chat-api/models/components";
 
 async function run() {
     const sdk = new InkeepClient({
         apiKey: "<YOUR_BEARER_TOKEN_HERE>",
     });
 
-    const result = await sdk.createChatSessionWithChatResult({
+    const result = await sdk.chatSession.create({
         integrationId: "string",
         chatSession: {
             messages: [,],

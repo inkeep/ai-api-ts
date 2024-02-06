@@ -5,19 +5,27 @@
 import { ChatSessionInput, ChatSessionInput$ } from "./chatsessioninput";
 import { z } from "zod";
 
+export enum ChatMode {
+    Auto = "auto",
+    Turbo = "turbo",
+}
+
 export type CreateChatSessionWithChatResultInput = {
     integrationId: string;
     chatSession: ChatSessionInput;
-    chatMode?: string | undefined;
+    chatMode?: ChatMode | undefined;
     stream?: boolean | undefined;
 };
+
+/** @internal */
+export const ChatMode$ = z.nativeEnum(ChatMode);
 
 /** @internal */
 export namespace CreateChatSessionWithChatResultInput$ {
     export type Inbound = {
         integration_id: string;
         chat_session: ChatSessionInput$.Inbound;
-        chat_mode?: string | undefined;
+        chat_mode?: ChatMode | undefined;
         stream?: boolean | undefined;
     };
 
@@ -29,7 +37,7 @@ export namespace CreateChatSessionWithChatResultInput$ {
         .object({
             integration_id: z.string(),
             chat_session: ChatSessionInput$.inboundSchema,
-            chat_mode: z.string().default("auto"),
+            chat_mode: ChatMode$.default(ChatMode.Auto),
             stream: z.boolean().default(false),
         })
         .transform((v) => {
@@ -44,7 +52,7 @@ export namespace CreateChatSessionWithChatResultInput$ {
     export type Outbound = {
         integration_id: string;
         chat_session: ChatSessionInput$.Outbound;
-        chat_mode: string;
+        chat_mode: ChatMode;
         stream: boolean;
     };
 
@@ -56,7 +64,7 @@ export namespace CreateChatSessionWithChatResultInput$ {
         .object({
             integrationId: z.string(),
             chatSession: ChatSessionInput$.outboundSchema,
-            chatMode: z.string().default("auto"),
+            chatMode: ChatMode$.default(ChatMode.Auto),
             stream: z.boolean().default(false),
         })
         .transform((v) => {

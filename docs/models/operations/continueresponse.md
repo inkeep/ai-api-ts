@@ -1,4 +1,4 @@
-# ContinueChatSessionWithChatResultResponse
+# ContinueResponse
 
 
 ## Fields

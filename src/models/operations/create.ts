@@ -6,7 +6,7 @@ import { EventStream } from "../../lib/event-streams";
 import * as components from "../../models/components";
 import { z } from "zod";
 
-export type CreateChatSessionWithChatResultResponse = {
+export type CreateResponse = {
     /**
      * HTTP response content type for this operation
      */
@@ -30,7 +30,7 @@ export type CreateChatSessionWithChatResultResponse = {
 };
 
 /** @internal */
-export namespace CreateChatSessionWithChatResultResponse$ {
+export namespace CreateResponse$ {
     export type Inbound = {
         ContentType: string;
         StatusCode: number;
@@ -39,11 +39,7 @@ export namespace CreateChatSessionWithChatResultResponse$ {
         ChatResultStreamEvent?: ReadableStream<Uint8Array> | undefined;
     };
 
-    export const inboundSchema: z.ZodType<
-        CreateChatSessionWithChatResultResponse,
-        z.ZodTypeDef,
-        Inbound
-    > = z
+    export const inboundSchema: z.ZodType<CreateResponse, z.ZodTypeDef, Inbound> = z
         .object({
             ContentType: z.string(),
             StatusCode: z.number().int(),
@@ -82,11 +78,7 @@ export namespace CreateChatSessionWithChatResultResponse$ {
         ChatResultStreamEvent?: never | undefined;
     };
 
-    export const outboundSchema: z.ZodType<
-        Outbound,
-        z.ZodTypeDef,
-        CreateChatSessionWithChatResultResponse
-    > = z
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, CreateResponse> = z
         .object({
             contentType: z.string(),
             statusCode: z.number().int(),

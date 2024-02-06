@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 34eefffd-7ab1-47f5-a2d6-ed3b060612b0
 management:
-  docChecksum: 5e58a507a4eac0e28bca875870ff458c
+  docChecksum: 16ce920a2df58cfdf1096bad1e071257
   docVersion: 0.1.0
   speakeasyVersion: internal
   generationVersion: 2.250.2
-  releaseVersion: 0.2.1
-  configChecksum: fa94c4b1781a8dab05d60bb84d6ce629
+  releaseVersion: 0.0.1
+  configChecksum: b9447c52d3d60533287aba8f356b9ae5
   repoURL: https://github.com/inkeep/chat-api-ts.git
   repoSubDirectory: .
   installationURL: https://github.com/inkeep/chat-api-ts
@@ -22,6 +22,7 @@ features:
     serverEvents: 0.1.1
     unions: 2.85.1
 generatedFiles:
+  - src/sdk/chatsession.ts
   - src/sdk/sdk.ts
   - .eslintrc.js
   - .npmignore
@@ -46,8 +47,8 @@ generatedFiles:
   - src/types/operations.ts
   - src/types/rfcdate.ts
   - tsconfig.json
-  - src/models/operations/createchatsessionwithchatresult.ts
-  - src/models/operations/continuechatsessionwithchatresult.ts
+  - src/models/operations/create.ts
+  - src/models/operations/continue.ts
   - src/models/components/chatresultstreamevent.ts
   - src/models/components/chatresultmessagechunkevent.ts
   - src/models/components/messagechunk.ts
@@ -57,21 +58,22 @@ generatedFiles:
   - src/models/components/record.ts
   - src/models/components/recordtype.ts
   - src/models/components/chatresult.ts
-  - src/models/components/assistantmessage.ts
+  - src/models/components/assistantmessageresponse.ts
   - src/models/components/validationerror.ts
   - src/models/components/createchatsessionwithchatresultinput.ts
   - src/models/components/chatsessioninput.ts
   - src/models/components/message.ts
   - src/models/components/usermessage.ts
+  - src/models/components/assistantmessage.ts
   - src/models/components/continuechatsessionwithchatresultinput.ts
   - src/models/components/security.ts
   - src/models/errors/httpvalidationerror.ts
   - src/models/errors/index.ts
   - src/models/operations/index.ts
   - src/models/components/index.ts
-  - docs/models/operations/createchatsessionwithchatresultresponse.md
-  - docs/models/operations/continuechatsessionwithchatresultrequest.md
-  - docs/models/operations/continuechatsessionwithchatresultresponse.md
+  - docs/models/operations/createresponse.md
+  - docs/models/operations/continuerequest.md
+  - docs/models/operations/continueresponse.md
   - docs/models/components/chatresultstreamevent.md
   - docs/models/components/chatresultmessagechunkevent.md
   - docs/models/components/messagechunk.md
@@ -82,16 +84,19 @@ generatedFiles:
   - docs/models/components/recordtypeenumerated.md
   - docs/models/components/recordtype.md
   - docs/models/components/chatresult.md
-  - docs/models/components/assistantmessage.md
+  - docs/models/components/assistantmessageresponse.md
   - docs/models/components/loc.md
   - docs/models/components/validationerror.md
+  - docs/models/components/chatmode.md
   - docs/models/components/createchatsessionwithchatresultinput.md
   - docs/models/components/chatsessioninput.md
   - docs/models/components/message.md
   - docs/models/components/usermessage.md
+  - docs/models/components/assistantmessage.md
   - docs/models/components/continuechatsessionwithchatresultinput.md
   - docs/models/components/security.md
   - docs/models/errors/httpvalidationerror.md
   - docs/sdks/inkeepclient/README.md
+  - docs/sdks/chatsession/README.md
   - USAGE.md
   - .gitattributes
