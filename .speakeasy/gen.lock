@@ -5,8 +5,8 @@ management:
   docVersion: 0.1.0
   speakeasyVersion: internal
   generationVersion: 2.250.2
-  releaseVersion: 0.0.6
-  configChecksum: 96d9feef5306b41dbfdcffc813f6f65a
+  releaseVersion: 0.0.7
+  configChecksum: c0b31d838aec50634f5681cac4bd4036
   repoURL: https://github.com/inkeep/chat-api-ts.git
   repoSubDirectory: .
   installationURL: https://github.com/inkeep/chat-api-ts
