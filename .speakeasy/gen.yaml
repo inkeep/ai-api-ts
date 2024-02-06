@@ -8,8 +8,9 @@ generation:
   fixes:
     nameResolutionDec2023: true
     parameterOrderingFeb2024: true
+    requestResponseComponentNamesFeb2024: false
 typescript:
-  version: 0.0.1
+  version: 0.1.0
   author: Nick Gomez
   clientServerStatusCodesAsErrors: true
   flattenGlobalSecurity: true

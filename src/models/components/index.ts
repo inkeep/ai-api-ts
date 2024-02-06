@@ -3,7 +3,6 @@
  */
 
 export * from "./assistantmessage";
-export * from "./assistantmessageresponse";
 export * from "./chatresult";
 export * from "./chatresultmessagechunkevent";
 export * from "./chatresultrecordscitedevent";
