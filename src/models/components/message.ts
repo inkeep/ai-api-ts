@@ -19,12 +19,20 @@ export namespace Message$ {
         | (AssistantMessage$.Outbound & { role: "assistant" });
 
     export const inboundSchema: z.ZodType<Message, z.ZodTypeDef, Inbound> = z.union([
-        UserMessage$.inboundSchema.and(z.object({ role: z.literal("user") })),
-        AssistantMessage$.inboundSchema.and(z.object({ role: z.literal("assistant") })),
+        UserMessage$.inboundSchema.and(
+            z.object({ role: z.literal("user") }).transform((v) => ({ role: v.role }))
+        ),
+        AssistantMessage$.inboundSchema.and(
+            z.object({ role: z.literal("assistant") }).transform((v) => ({ role: v.role }))
+        ),
     ]);
 
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Message> = z.union([
-        UserMessage$.outboundSchema.and(z.object({ role: z.literal("user") })),
-        AssistantMessage$.outboundSchema.and(z.object({ role: z.literal("assistant") })),
+        UserMessage$.outboundSchema.and(
+            z.object({ role: z.literal("user") }).transform((v) => ({ role: v.role }))
+        ),
+        AssistantMessage$.outboundSchema.and(
+            z.object({ role: z.literal("assistant") }).transform((v) => ({ role: v.role }))
+        ),
     ]);
 }

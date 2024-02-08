@@ -28,19 +28,19 @@ export namespace ChatResultStream$ {
 
     export const inboundSchema: z.ZodType<ChatResultStream, z.ZodTypeDef, Inbound> = z.union([
         ChatResultMessageChunkEvent$.inboundSchema.and(
-            z.object({ event: z.literal("message_chunk") })
+            z.object({ event: z.literal("message_chunk") }).transform((v) => ({ event: v.event }))
         ),
         ChatResultRecordsCitedEvent$.inboundSchema.and(
-            z.object({ event: z.literal("records_cited") })
+            z.object({ event: z.literal("records_cited") }).transform((v) => ({ event: v.event }))
         ),
     ]);
 
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, ChatResultStream> = z.union([
         ChatResultMessageChunkEvent$.outboundSchema.and(
-            z.object({ event: z.literal("message_chunk") })
+            z.object({ event: z.literal("message_chunk") }).transform((v) => ({ event: v.event }))
         ),
         ChatResultRecordsCitedEvent$.outboundSchema.and(
-            z.object({ event: z.literal("records_cited") })
+            z.object({ event: z.literal("records_cited") }).transform((v) => ({ event: v.event }))
         ),
     ]);
 }
