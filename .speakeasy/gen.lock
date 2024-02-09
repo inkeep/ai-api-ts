@@ -4,9 +4,9 @@ management:
   docChecksum: 42038dca1658739691fe3ea717bcb5b8
   docVersion: 0.1.0
   speakeasyVersion: internal
-  generationVersion: 2.250.16
-  releaseVersion: 0.1.2
-  configChecksum: 3f30215686ce2578093b28190698081e
+  generationVersion: 2.250.22
+  releaseVersion: 0.1.3
+  configChecksum: b6125aba5e0fcb071346ee39df82aa41
   repoURL: https://github.com/inkeep/ai-api-ts.git
   repoSubDirectory: .
   installationURL: https://github.com/inkeep/ai-api-ts
@@ -15,10 +15,10 @@ features:
   typescript:
     acceptHeaders: 2.81.1
     constsAndDefaults: 0.1.2
-    core: 3.4.8
+    core: 3.4.9
     flattening: 2.81.1
     globalSecurity: 2.82.2
-    globalServerURLs: 2.82.1
+    globalServerURLs: 2.82.2
     serverEvents: 0.1.1
     unions: 2.85.2
 generatedFiles:
