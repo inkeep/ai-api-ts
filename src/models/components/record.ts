@@ -12,6 +12,7 @@ export type RecordT = {
     type: RecordType;
     url?: string | null | undefined;
     title?: string | null | undefined;
+    description?: string | null | undefined;
     breadcrumbs?: Array<string> | null | undefined;
 };
 
@@ -21,6 +22,7 @@ export namespace RecordT$ {
         type: RecordType$.Inbound;
         url?: string | null | undefined;
         title?: string | null | undefined;
+        description?: string | null | undefined;
         breadcrumbs?: Array<string> | null | undefined;
     };
 
@@ -29,6 +31,7 @@ export namespace RecordT$ {
             type: RecordType$.inboundSchema,
             url: z.nullable(z.string()).optional(),
             title: z.nullable(z.string()).optional(),
+            description: z.nullable(z.string()).optional(),
             breadcrumbs: z.nullable(z.array(z.string())).optional(),
         })
         .transform((v) => {
@@ -36,6 +39,7 @@ export namespace RecordT$ {
                 type: v.type,
                 ...(v.url === undefined ? null : { url: v.url }),
                 ...(v.title === undefined ? null : { title: v.title }),
+                ...(v.description === undefined ? null : { description: v.description }),
                 ...(v.breadcrumbs === undefined ? null : { breadcrumbs: v.breadcrumbs }),
             };
         });
@@ -44,6 +48,7 @@ export namespace RecordT$ {
         type: RecordType$.Outbound;
         url?: string | null | undefined;
         title?: string | null | undefined;
+        description?: string | null | undefined;
         breadcrumbs?: Array<string> | null | undefined;
     };
 
@@ -52,6 +57,7 @@ export namespace RecordT$ {
             type: RecordType$.outboundSchema,
             url: z.nullable(z.string()).optional(),
             title: z.nullable(z.string()).optional(),
+            description: z.nullable(z.string()).optional(),
             breadcrumbs: z.nullable(z.array(z.string())).optional(),
         })
         .transform((v) => {
@@ -59,6 +65,7 @@ export namespace RecordT$ {
                 type: v.type,
                 ...(v.url === undefined ? null : { url: v.url }),
                 ...(v.title === undefined ? null : { title: v.title }),
+                ...(v.description === undefined ? null : { description: v.description }),
                 ...(v.breadcrumbs === undefined ? null : { breadcrumbs: v.breadcrumbs }),
             };
         });
