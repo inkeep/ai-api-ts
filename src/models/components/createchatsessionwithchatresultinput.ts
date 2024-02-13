@@ -64,7 +64,7 @@ export namespace CreateChatSessionWithChatResultInput$ {
                 integrationId: v.integration_id,
                 chatSession: v.chat_session,
                 ...(v.chat_mode === undefined ? null : { chatMode: v.chat_mode }),
-                ...(v.stream === undefined ? null : { stream: v.stream }),
+                stream: v.stream,
             };
         });
 

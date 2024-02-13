@@ -33,7 +33,7 @@ export namespace ContinueChatSessionWithChatResultInput$ {
             return {
                 integrationId: v.integration_id,
                 message: v.message,
-                ...(v.stream === undefined ? null : { stream: v.stream }),
+                stream: v.stream,
             };
         });
 
