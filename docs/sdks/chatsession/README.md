@@ -18,6 +18,7 @@ Create Chat Session and receive a Chat Result
 
 ```typescript
 import { InkeepAI } from "@inkeep/ai-api";
+import { ChatModeOptions } from "@inkeep/ai-api/models/components";
 
 async function run() {
   const sdk = new InkeepAI({
@@ -25,12 +26,15 @@ async function run() {
   });
 
   const result = await sdk.chatSession.create({
-    integrationId: "string",
+    integrationId: "<value>",
     chatSession: {
       messages: [
-        ,
+          {
+            content: "<value>",
+          },
       ],
     },
+  chatMode: ChatModeOptions.Auto,
   });
 
   if (res.chatResult == null) {
@@ -78,9 +82,25 @@ async function run() {
     apiKey: "<YOUR_BEARER_TOKEN_HERE>",
   });
 
-  const chatSessionId = "string";
+  const chatSessionId = "<value>";
   const continueChatSessionWithChatResultInput = {
-    integrationId: "string",
+    integrationId: "<value>",
+  message:     {
+        content: "<value>",
+        recordsCited: {
+          citations: [
+            {
+              number: 926529,
+              record: {
+              type: "<value>",
+                breadcrumbs: [
+                  "<value>",
+                ],
+              },
+            },
+          ],
+        },
+      },
   };
   
   const result = await sdk.chatSession.continue(chatSessionId, continueChatSessionWithChatResultInput);

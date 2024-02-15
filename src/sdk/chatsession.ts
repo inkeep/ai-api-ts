@@ -32,6 +32,7 @@ export class ChatSession extends ClientSDK {
         this.options$ = options;
         void this.options$;
     }
+
     /**
      * Create Chat Session and receive a Chat Result
      */

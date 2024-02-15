@@ -1,6 +1,7 @@
 <!-- Start SDK Example Usage [usage] -->
 ```typescript
 import { InkeepAI } from "@inkeep/ai-api";
+import { ChatModeOptions } from "@inkeep/ai-api/models/components";
 
 async function run() {
     const sdk = new InkeepAI({
@@ -8,10 +9,15 @@ async function run() {
     });
 
     const result = await sdk.chatSession.create({
-        integrationId: "string",
+        integrationId: "<value>",
         chatSession: {
-            messages: [,],
+            messages: [
+                {
+                    content: "<value>",
+                },
+            ],
         },
+        chatMode: ChatModeOptions.Auto,
     });
 
     if (res.chatResult == null) {

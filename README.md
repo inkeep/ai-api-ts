@@ -36,6 +36,7 @@ For supported JavaScript runtimes, please consult [RUNTIMES.md](RUNTIMES.md).
 
 ```typescript
 import { InkeepAI } from "@inkeep/ai-api";
+import { ChatModeOptions } from "@inkeep/ai-api/models/components";
 
 async function run() {
     const sdk = new InkeepAI({
@@ -43,10 +44,15 @@ async function run() {
     });
 
     const result = await sdk.chatSession.create({
-        integrationId: "string",
+        integrationId: "<value>",
         chatSession: {
-            messages: [,],
+            messages: [
+                {
+                    content: "<value>",
+                },
+            ],
         },
+        chatMode: ChatModeOptions.Auto,
     });
 
     if (res.chatResult == null) {
@@ -83,6 +89,7 @@ underlying connection.
 
 ```typescript
 import { InkeepAI } from "@inkeep/ai-api";
+import { ChatModeOptions } from "@inkeep/ai-api/models/components";
 
 async function run() {
     const sdk = new InkeepAI({
@@ -90,10 +97,15 @@ async function run() {
     });
 
     const result = await sdk.chatSession.create({
-        integrationId: "string",
+        integrationId: "<value>",
         chatSession: {
-            messages: [,],
+            messages: [
+                {
+                    content: "<value>",
+                },
+            ],
         },
+        chatMode: ChatModeOptions.Auto,
     });
 
     if (res.chatResult == null) {
@@ -127,7 +139,7 @@ Example
 
 ```typescript
 import { InkeepAI } from "@inkeep/ai-api";
-import * as errors from "@inkeep/ai-api/models/errors";
+import { ChatModeOptions } from "@inkeep/ai-api/models/components";
 
 async function run() {
     const sdk = new InkeepAI({
@@ -137,10 +149,15 @@ async function run() {
     let result;
     try {
         result = await sdk.chatSession.create({
-            integrationId: "string",
+            integrationId: "<value>",
             chatSession: {
-                messages: [,],
+                messages: [
+                    {
+                        content: "<value>",
+                    },
+                ],
             },
+            chatMode: ChatModeOptions.Auto,
         });
     } catch (err) {
         switch (true) {
@@ -181,6 +198,7 @@ You can override the default server globally by passing a server index to the `s
 
 ```typescript
 import { InkeepAI } from "@inkeep/ai-api";
+import { ChatModeOptions } from "@inkeep/ai-api/models/components";
 
 async function run() {
     const sdk = new InkeepAI({
@@ -189,10 +207,15 @@ async function run() {
     });
 
     const result = await sdk.chatSession.create({
-        integrationId: "string",
+        integrationId: "<value>",
         chatSession: {
-            messages: [,],
+            messages: [
+                {
+                    content: "<value>",
+                },
+            ],
         },
+        chatMode: ChatModeOptions.Auto,
     });
 
     if (res.chatResult == null) {
@@ -215,6 +238,7 @@ The default server can also be overridden globally by passing a URL to the `serv
 
 ```typescript
 import { InkeepAI } from "@inkeep/ai-api";
+import { ChatModeOptions } from "@inkeep/ai-api/models/components";
 
 async function run() {
     const sdk = new InkeepAI({
@@ -223,10 +247,15 @@ async function run() {
     });
 
     const result = await sdk.chatSession.create({
-        integrationId: "string",
+        integrationId: "<value>",
         chatSession: {
-            messages: [,],
+            messages: [
+                {
+                    content: "<value>",
+                },
+            ],
         },
+        chatMode: ChatModeOptions.Auto,
     });
 
     if (res.chatResult == null) {
@@ -306,6 +335,7 @@ This SDK supports the following security scheme globally:
 To authenticate with the API the `apiKey` parameter must be set when initializing the SDK client instance. For example:
 ```typescript
 import { InkeepAI } from "@inkeep/ai-api";
+import { ChatModeOptions } from "@inkeep/ai-api/models/components";
 
 async function run() {
     const sdk = new InkeepAI({
@@ -313,10 +343,15 @@ async function run() {
     });
 
     const result = await sdk.chatSession.create({
-        integrationId: "string",
+        integrationId: "<value>",
         chatSession: {
-            messages: [,],
+            messages: [
+                {
+                    content: "<value>",
+                },
+            ],
         },
+        chatMode: ChatModeOptions.Auto,
     });
 
     if (res.chatResult == null) {

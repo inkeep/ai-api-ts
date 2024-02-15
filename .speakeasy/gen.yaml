@@ -10,7 +10,7 @@ generation:
     parameterOrderingFeb2024: true
     requestResponseComponentNamesFeb2024: false
 typescript:
-  version: 0.1.5
+  version: 0.1.6
   author: Nick Gomez
   clientServerStatusCodesAsErrors: true
   flattenGlobalSecurity: true

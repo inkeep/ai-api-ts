@@ -1,7 +1,7 @@
 {
   "type": "commonjs",
   "name": "@inkeep/ai-api",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "author": "Nick Gomez",
   "main": "./index.js",
   "sideEffects": false,
