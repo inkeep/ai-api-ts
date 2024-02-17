@@ -139,7 +139,6 @@ export class ChatSession extends ClientSDK {
                 charEncoding: "percent",
             }),
         };
-
         const path$ = this.templateURLComponent("/v0/chat_sessions/{chat_session_id}/chat_results")(
             pathParams$
         );
