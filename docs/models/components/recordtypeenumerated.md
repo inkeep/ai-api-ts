@@ -13,3 +13,4 @@
 | `StackoverflowQuestion` | stackoverflow_question  |
 | `DiscordForumPost`      | discord_forum_post      |
 | `DiscordMessage`        | discord_message         |
+| `CustomQuestionAnswer`  | custom_question_answer  |

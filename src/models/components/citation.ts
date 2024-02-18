@@ -6,7 +6,7 @@ import { RecordT, RecordT$ } from "./record";
 import { z } from "zod";
 
 export type Citation = {
-    number: number;
+    number?: number | undefined;
     record: RecordT;
     hitUrl?: string | null | undefined;
 };
@@ -14,40 +14,40 @@ export type Citation = {
 /** @internal */
 export namespace Citation$ {
     export type Inbound = {
-        number: number;
+        number?: number | undefined;
         record: RecordT$.Inbound;
         hit_url?: string | null | undefined;
     };
 
     export const inboundSchema: z.ZodType<Citation, z.ZodTypeDef, Inbound> = z
         .object({
-            number: z.number().int(),
+            number: z.number().int().optional(),
             record: RecordT$.inboundSchema,
             hit_url: z.nullable(z.string()).optional(),
         })
         .transform((v) => {
             return {
-                number: v.number,
+                ...(v.number === undefined ? null : { number: v.number }),
                 record: v.record,
                 ...(v.hit_url === undefined ? null : { hitUrl: v.hit_url }),
             };
         });
 
     export type Outbound = {
-        number: number;
+        number?: number | undefined;
         record: RecordT$.Outbound;
         hit_url?: string | null | undefined;
     };
 
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Citation> = z
         .object({
-            number: z.number().int(),
+            number: z.number().int().optional(),
             record: RecordT$.outboundSchema,
             hitUrl: z.nullable(z.string()).optional(),
         })
         .transform((v) => {
             return {
-                number: v.number,
+                ...(v.number === undefined ? null : { number: v.number }),
                 record: v.record,
                 ...(v.hitUrl === undefined ? null : { hit_url: v.hitUrl }),
             };

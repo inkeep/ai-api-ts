@@ -90,7 +90,6 @@ async function run() {
         recordsCited: {
           citations: [
             {
-              number: 926529,
               record: {
               type: "<value>",
                 breadcrumbs: [
