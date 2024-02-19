@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="https://storage.googleapis.com/organization-image-assets/inkeep-botAvatarSrcUrl-1705425055419.png" width="200">
+    <img src="https://github.com/inkeep/ai-api-ts/assets/108416695/94986354-0863-4141-9d02-8cde193a7168" width="200">
     <h1>Inkeep Chat API TS SDK</h1>
     <a href="https://speakeasyapi.dev/"><img src="https://custom-icon-badges.demolab.com/badge/-Built%20By%20Speakeasy-212015?style=for-the-badge&logoColor=FBE331&logo=speakeasy&labelColor=545454" /></a>
     <a href="https://opensource.org/licenses/MIT">
