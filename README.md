@@ -55,11 +55,11 @@ async function run() {
         chatMode: ChatModeOptions.Auto,
     });
 
-    if (res.chatResult == null) {
+    if (res.chatResultStream == null) {
         throw new Error("failed to create stream: received null value");
     }
 
-    for await (const event of res.chatResult) {
+    for await (const event of res.chatResultStream) {
         // Handle the event
     }
 }
@@ -74,8 +74,8 @@ run();
 
 ### [chatSession](docs/sdks/chatsession/README.md)
 
-* [create](docs/sdks/chatsession/README.md#create) - Create Chat Session and receive a Chat Result
-* [continue](docs/sdks/chatsession/README.md#continue) - Continue Chat Session and receive a Chat Result
+* [create](docs/sdks/chatsession/README.md#create) - Create Chat Session
+* [continue](docs/sdks/chatsession/README.md#continue) - Continue Chat Session
 <!-- End Available Resources and Operations [operations] -->
 
 <!-- Start Server-sent event streaming [eventstream] -->
@@ -108,11 +108,11 @@ async function run() {
         chatMode: ChatModeOptions.Auto,
     });
 
-    if (res.chatResult == null) {
+    if (res.chatResultStream == null) {
         throw new Error("failed to create stream: received null value");
     }
 
-    for await (const event of res.chatResult) {
+    for await (const event of res.chatResultStream) {
         // Handle the event
     }
 }
@@ -171,11 +171,11 @@ async function run() {
         }
     }
 
-    if (res.chatResult == null) {
+    if (res.chatResultStream == null) {
         throw new Error("failed to create stream: received null value");
     }
 
-    for await (const event of res.chatResult) {
+    for await (const event of res.chatResultStream) {
         // Handle the event
     }
 }
@@ -218,11 +218,11 @@ async function run() {
         chatMode: ChatModeOptions.Auto,
     });
 
-    if (res.chatResult == null) {
+    if (res.chatResultStream == null) {
         throw new Error("failed to create stream: received null value");
     }
 
-    for await (const event of res.chatResult) {
+    for await (const event of res.chatResultStream) {
         // Handle the event
     }
 }
@@ -258,11 +258,11 @@ async function run() {
         chatMode: ChatModeOptions.Auto,
     });
 
-    if (res.chatResult == null) {
+    if (res.chatResultStream == null) {
         throw new Error("failed to create stream: received null value");
     }
 
-    for await (const event of res.chatResult) {
+    for await (const event of res.chatResultStream) {
         // Handle the event
     }
 }
@@ -354,11 +354,11 @@ async function run() {
         chatMode: ChatModeOptions.Auto,
     });
 
-    if (res.chatResult == null) {
+    if (res.chatResultStream == null) {
         throw new Error("failed to create stream: received null value");
     }
 
-    for await (const event of res.chatResult) {
+    for await (const event of res.chatResultStream) {
         // Handle the event
     }
 }
