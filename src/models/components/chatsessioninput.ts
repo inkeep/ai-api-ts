@@ -6,35 +6,49 @@ import { Message, Message$ } from "./message";
 import { z } from "zod";
 
 export type ChatSessionInput = {
+    guidance?: string | null | undefined;
+    context?: string | null | undefined;
     messages: Array<Message>;
 };
 
 /** @internal */
 export namespace ChatSessionInput$ {
     export type Inbound = {
+        guidance?: string | null | undefined;
+        context?: string | null | undefined;
         messages: Array<Message$.Inbound>;
     };
 
     export const inboundSchema: z.ZodType<ChatSessionInput, z.ZodTypeDef, Inbound> = z
         .object({
+            guidance: z.nullable(z.string()).optional(),
+            context: z.nullable(z.string()).optional(),
             messages: z.array(Message$.inboundSchema),
         })
         .transform((v) => {
             return {
+                ...(v.guidance === undefined ? null : { guidance: v.guidance }),
+                ...(v.context === undefined ? null : { context: v.context }),
                 messages: v.messages,
             };
         });
 
     export type Outbound = {
+        guidance?: string | null | undefined;
+        context?: string | null | undefined;
         messages: Array<Message$.Outbound>;
     };
 
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, ChatSessionInput> = z
         .object({
+            guidance: z.nullable(z.string()).optional(),
+            context: z.nullable(z.string()).optional(),
             messages: z.array(Message$.outboundSchema),
         })
         .transform((v) => {
             return {
+                ...(v.guidance === undefined ? null : { guidance: v.guidance }),
+                ...(v.context === undefined ? null : { context: v.context }),
                 messages: v.messages,
             };
         });
