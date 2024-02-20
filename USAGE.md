@@ -20,11 +20,11 @@ async function run() {
         chatMode: ChatModeOptions.Auto,
     });
 
-    if (res.chatResult == null) {
+    if (res.chatResultStream == null) {
         throw new Error("failed to create stream: received null value");
     }
 
-    for await (const event of res.chatResult) {
+    for await (const event of res.chatResultStream) {
         // Handle the event
     }
 }

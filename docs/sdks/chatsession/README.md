@@ -7,12 +7,12 @@ Create and manage chat sessions for users. Chat history and continuation of chat
 
 ### Available Operations
 
-* [create](#create) - Create Chat Session and receive a Chat Result
-* [continue](#continue) - Continue Chat Session and receive a Chat Result
+* [create](#create) - Create Chat Session
+* [continue](#continue) - Continue Chat Session
 
 ## create
 
-Create Chat Session and receive a Chat Result
+Create Chat Session
 
 ### Example Usage
 
@@ -37,11 +37,11 @@ async function run() {
   chatMode: ChatModeOptions.Auto,
   });
 
-  if (res.chatResult == null) {
+  if (res.chatResultStream == null) {
     throw new Error("failed to create stream: received null value");
   }
   
-  for await (const event of res.chatResult) {
+  for await (const event of res.chatResultStream) {
     // Handle the event
   }
 }
@@ -70,7 +70,7 @@ run();
 
 ## continue
 
-Continue Chat Session and receive a Chat Result
+Continue Chat Session
 
 ### Example Usage
 
@@ -104,11 +104,11 @@ async function run() {
   
   const result = await sdk.chatSession.continue(chatSessionId, continueChatSessionWithChatResultInput);
 
-  if (res.chatResult == null) {
+  if (res.chatResultStream == null) {
     throw new Error("failed to create stream: received null value");
   }
   
-  for await (const event of res.chatResult) {
+  for await (const event of res.chatResultStream) {
     // Handle the event
   }
 }
