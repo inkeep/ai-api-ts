@@ -10,7 +10,7 @@ generation:
     parameterOrderingFeb2024: true
     requestResponseComponentNamesFeb2024: false
 typescript:
-  version: 0.2.0
+  version: 0.3.0
   additionalDependencies:
     dependencies: {}
     devDependencies: {}
@@ -30,4 +30,5 @@ typescript:
   maxMethodParams: 4
   outputModelSuffix: output
   packageName: '@inkeep/ai-api'
+  responseFormat: envelope
   templateVersion: v2

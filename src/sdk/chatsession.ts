@@ -151,7 +151,6 @@ export class ChatSession extends ClientSDK {
         headers$.set("Accept", accept);
 
         const payload$ = operations.ContinueRequest$.outboundSchema.parse(input$);
-
         const body$ = enc$.encodeJSON("body", payload$.ContinueChatSessionWithChatResultInput, {
             explode: true,
         });
