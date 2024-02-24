@@ -9,8 +9,10 @@ generation:
     nameResolutionDec2023: true
     parameterOrderingFeb2024: true
     requestResponseComponentNamesFeb2024: false
+  auth:
+    oAuth2ClientCredentialsEnabled: false
 typescript:
-  version: 0.3.0
+  version: 0.4.0
   additionalDependencies:
     dependencies: {}
     devDependencies: {}

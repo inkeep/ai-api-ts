@@ -6,6 +6,7 @@ import { SDKHooks } from "../hooks";
 import { SDK_METADATA, SDKOptions, serverURLFromOptions } from "../lib/config";
 import * as enc$ from "../lib/encodings";
 import { HTTPClient } from "../lib/http";
+import * as schemas$ from "../lib/schemas";
 import { ClientSDK, RequestOptions } from "../lib/sdks";
 import * as components from "../models/components";
 import * as errors from "../models/errors";
@@ -63,8 +64,12 @@ export class ChatSession extends ClientSDK {
             options?.acceptHeaderOverride || "application/json;q=1, text/event-stream;q=0";
         headers$.set("Accept", accept);
 
-        const payload$ =
-            components.CreateChatSessionWithChatResultInput$.outboundSchema.parse(input);
+        const payload$ = schemas$.parse(
+            input,
+            (value$) =>
+                components.CreateChatSessionWithChatResultInput$.outboundSchema.parse(value$),
+            "Input validation failed"
+        );
         const body$ = enc$.encodeJSON("body", payload$, { explode: true });
 
         const path$ = this.templateURLComponent("/v0/chat_sessions/chat_results")();
@@ -83,9 +88,8 @@ export class ChatSession extends ClientSDK {
 
         const context = { operationID: "create" };
         const doOptions = { context, errorCodes: ["422", "4XX", "5XX"] };
-        const request = await this.createRequest$(
+        const request = this.createRequest$(
             {
-                context,
                 security: securitySettings$,
                 method: "POST",
                 path: path$,
@@ -106,23 +110,41 @@ export class ChatSession extends ClientSDK {
 
         if (this.matchResponse(response, 200, "application/json")) {
             const responseBody = await response.json();
-            const result = operations.CreateResponse$.inboundSchema.parse({
-                ...responseFields$,
-                ChatResult: responseBody,
-            });
+            const result = schemas$.parse(
+                responseBody,
+                (val$) => {
+                    return operations.CreateResponse$.inboundSchema.parse({
+                        ...responseFields$,
+                        ChatResult: val$,
+                    });
+                },
+                "Response validation failed"
+            );
             return result;
         } else if (this.matchResponse(response, 200, "text/event-stream")) {
-            const result = operations.CreateResponse$.inboundSchema.parse({
-                ...responseFields$,
-                ChatResultStream: response.body,
-            });
+            const result = schemas$.parse(
+                response.body,
+                (val$) => {
+                    return operations.CreateResponse$.inboundSchema.parse({
+                        ...responseFields$,
+                        ChatResultStream: val$,
+                    });
+                },
+                "Response validation failed"
+            );
             return result;
         } else if (this.matchResponse(response, 422, "application/json")) {
             const responseBody = await response.json();
-            const result = errors.HTTPValidationError$.inboundSchema.parse({
-                ...responseFields$,
-                ...responseBody,
-            });
+            const result = schemas$.parse(
+                responseBody,
+                (val$) => {
+                    return errors.HTTPValidationError$.inboundSchema.parse({
+                        ...responseFields$,
+                        ...val$,
+                    });
+                },
+                "Response validation failed"
+            );
             throw result;
         } else {
             const responseBody = await response.text();
@@ -150,7 +172,11 @@ export class ChatSession extends ClientSDK {
             options?.acceptHeaderOverride || "application/json;q=1, text/event-stream;q=0";
         headers$.set("Accept", accept);
 
-        const payload$ = operations.ContinueRequest$.outboundSchema.parse(input$);
+        const payload$ = schemas$.parse(
+            input$,
+            (value$) => operations.ContinueRequest$.outboundSchema.parse(value$),
+            "Input validation failed"
+        );
         const body$ = enc$.encodeJSON("body", payload$.ContinueChatSessionWithChatResultInput, {
             explode: true,
         });
@@ -179,9 +205,8 @@ export class ChatSession extends ClientSDK {
 
         const context = { operationID: "continue" };
         const doOptions = { context, errorCodes: ["422", "4XX", "5XX"] };
-        const request = await this.createRequest$(
+        const request = this.createRequest$(
             {
-                context,
                 security: securitySettings$,
                 method: "POST",
                 path: path$,
@@ -202,23 +227,41 @@ export class ChatSession extends ClientSDK {
 
         if (this.matchResponse(response, 200, "application/json")) {
             const responseBody = await response.json();
-            const result = operations.ContinueResponse$.inboundSchema.parse({
-                ...responseFields$,
-                ChatResult: responseBody,
-            });
+            const result = schemas$.parse(
+                responseBody,
+                (val$) => {
+                    return operations.ContinueResponse$.inboundSchema.parse({
+                        ...responseFields$,
+                        ChatResult: val$,
+                    });
+                },
+                "Response validation failed"
+            );
             return result;
         } else if (this.matchResponse(response, 200, "text/event-stream")) {
-            const result = operations.ContinueResponse$.inboundSchema.parse({
-                ...responseFields$,
-                ChatResultStream: response.body,
-            });
+            const result = schemas$.parse(
+                response.body,
+                (val$) => {
+                    return operations.ContinueResponse$.inboundSchema.parse({
+                        ...responseFields$,
+                        ChatResultStream: val$,
+                    });
+                },
+                "Response validation failed"
+            );
             return result;
         } else if (this.matchResponse(response, 422, "application/json")) {
             const responseBody = await response.json();
-            const result = errors.HTTPValidationError$.inboundSchema.parse({
-                ...responseFields$,
-                ...responseBody,
-            });
+            const result = schemas$.parse(
+                responseBody,
+                (val$) => {
+                    return errors.HTTPValidationError$.inboundSchema.parse({
+                        ...responseFields$,
+                        ...val$,
+                    });
+                },
+                "Response validation failed"
+            );
             throw result;
         } else {
             const responseBody = await response.text();
