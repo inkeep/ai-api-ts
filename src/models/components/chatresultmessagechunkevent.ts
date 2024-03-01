@@ -9,20 +9,20 @@ import { z } from "zod";
  * A server-sent event containing a chunk of the message.
  */
 export type ChatResultMessageChunkEvent = {
-    event: "message_chunk";
+    event?: "message_chunk" | undefined;
     data: MessageChunk;
 };
 
 /** @internal */
 export namespace ChatResultMessageChunkEvent$ {
     export type Inbound = {
-        event: "message_chunk";
+        event?: "message_chunk" | undefined;
         data: string;
     };
 
     export const inboundSchema: z.ZodType<ChatResultMessageChunkEvent, z.ZodTypeDef, Inbound> = z
         .object({
-            event: z.literal("message_chunk"),
+            event: z.literal("message_chunk").optional(),
             data: z
                 .string()
                 .transform((v, ctx) => {
@@ -40,7 +40,7 @@ export namespace ChatResultMessageChunkEvent$ {
         })
         .transform((v) => {
             return {
-                event: v.event,
+                ...(v.event === undefined ? null : { event: v.event }),
                 data: v.data,
             };
         });
@@ -52,7 +52,7 @@ export namespace ChatResultMessageChunkEvent$ {
 
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, ChatResultMessageChunkEvent> = z
         .object({
-            event: z.literal("message_chunk"),
+            event: z.literal("message_chunk").default("message_chunk" as const),
             data: MessageChunk$.outboundSchema,
         })
         .transform((v) => {

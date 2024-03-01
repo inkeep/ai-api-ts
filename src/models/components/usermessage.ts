@@ -5,25 +5,25 @@
 import { z } from "zod";
 
 export type UserMessage = {
-    role: "user";
+    role?: "user" | undefined;
     content: string;
 };
 
 /** @internal */
 export namespace UserMessage$ {
     export type Inbound = {
-        role: "user";
+        role?: "user" | undefined;
         content: string;
     };
 
     export const inboundSchema: z.ZodType<UserMessage, z.ZodTypeDef, Inbound> = z
         .object({
-            role: z.literal("user"),
+            role: z.literal("user").optional(),
             content: z.string(),
         })
         .transform((v) => {
             return {
-                role: v.role,
+                ...(v.role === undefined ? null : { role: v.role }),
                 content: v.content,
             };
         });
@@ -35,7 +35,7 @@ export namespace UserMessage$ {
 
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, UserMessage> = z
         .object({
-            role: z.literal("user"),
+            role: z.literal("user").default("user" as const),
             content: z.string(),
         })
         .transform((v) => {

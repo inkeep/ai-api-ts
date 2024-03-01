@@ -6,7 +6,7 @@ import { RecordsCited, RecordsCited$ } from "./recordscited";
 import { z } from "zod";
 
 export type AssistantMessage = {
-    role: "assistant";
+    role?: "assistant" | undefined;
     content: string;
     recordsCited?: RecordsCited | undefined;
 };
@@ -14,20 +14,20 @@ export type AssistantMessage = {
 /** @internal */
 export namespace AssistantMessage$ {
     export type Inbound = {
-        role: "assistant";
+        role?: "assistant" | undefined;
         content: string;
         records_cited?: RecordsCited$.Inbound | undefined;
     };
 
     export const inboundSchema: z.ZodType<AssistantMessage, z.ZodTypeDef, Inbound> = z
         .object({
-            role: z.literal("assistant"),
+            role: z.literal("assistant").optional(),
             content: z.string(),
             records_cited: RecordsCited$.inboundSchema.optional(),
         })
         .transform((v) => {
             return {
-                role: v.role,
+                ...(v.role === undefined ? null : { role: v.role }),
                 content: v.content,
                 ...(v.records_cited === undefined ? null : { recordsCited: v.records_cited }),
             };
@@ -41,7 +41,7 @@ export namespace AssistantMessage$ {
 
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, AssistantMessage> = z
         .object({
-            role: z.literal("assistant"),
+            role: z.literal("assistant").default("assistant" as const),
             content: z.string(),
             recordsCited: RecordsCited$.outboundSchema.optional(),
         })
