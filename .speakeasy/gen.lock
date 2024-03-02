@@ -4,9 +4,9 @@ management:
   docChecksum: ed990373348f5cfd4f8fefdd2c96df77
   docVersion: 0.1.0
   speakeasyVersion: internal
-  generationVersion: 2.275.4
-  releaseVersion: 0.4.1
-  configChecksum: 556842012166700972ce7693e8c4ef26
+  generationVersion: 2.277.0
+  releaseVersion: 0.4.2
+  configChecksum: ca3809e93bdff86ea31e1a0d88352c50
   repoURL: https://github.com/inkeep/ai-api-ts.git
   repoSubDirectory: .
   installationURL: https://github.com/inkeep/ai-api-ts
@@ -14,14 +14,14 @@ management:
 features:
   typescript:
     acceptHeaders: 2.81.1
-    constsAndDefaults: 0.1.4
+    constsAndDefaults: 0.1.5
     core: 3.6.1
     flattening: 2.81.1
     globalSecurity: 2.82.4
     globalServerURLs: 2.82.3
     responseFormat: 0.1.0
     serverEvents: 0.1.2
-    unions: 2.85.2
+    unions: 2.85.3
 generatedFiles:
   - src/sdk/chatsession.ts
   - src/sdk/sdk.ts

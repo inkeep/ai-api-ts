@@ -84,9 +84,13 @@ export class ChatSession extends ClientSDK {
         } else {
             security$ = {};
         }
+        const context = {
+            operationID: "create",
+            oAuth2Scopes: [],
+            securitySource: this.options$.apiKey,
+        };
         const securitySettings$ = this.resolveGlobalSecurity(security$);
 
-        const context = { operationID: "create" };
         const doOptions = { context, errorCodes: ["422", "4XX", "5XX"] };
         const request = this.createRequest$(
             {
@@ -201,9 +205,13 @@ export class ChatSession extends ClientSDK {
         } else {
             security$ = {};
         }
+        const context = {
+            operationID: "continue",
+            oAuth2Scopes: [],
+            securitySource: this.options$.apiKey,
+        };
         const securitySettings$ = this.resolveGlobalSecurity(security$);
 
-        const context = { operationID: "continue" };
         const doOptions = { context, errorCodes: ["422", "4XX", "5XX"] };
         const request = this.createRequest$(
             {
