@@ -5,42 +5,56 @@
 import {
     ChatResultMessageChunkEvent,
     ChatResultMessageChunkEvent$,
+    Event,
 } from "./chatresultmessagechunkevent";
 import {
     ChatResultRecordsCitedEvent,
     ChatResultRecordsCitedEvent$,
+    ChatResultRecordsCitedEventEvent,
 } from "./chatresultrecordscitedevent";
 import { z } from "zod";
 
 export type ChatResultStream =
-    | (ChatResultMessageChunkEvent & { event: "message_chunk" })
-    | (ChatResultRecordsCitedEvent & { event: "records_cited" });
+    | (ChatResultMessageChunkEvent & { event: Event.MessageChunk })
+    | (ChatResultRecordsCitedEvent & { event: ChatResultRecordsCitedEventEvent.RecordsCited });
 
 /** @internal */
 export namespace ChatResultStream$ {
     export type Inbound =
-        | (ChatResultMessageChunkEvent$.Inbound & { event: "message_chunk" })
-        | (ChatResultRecordsCitedEvent$.Inbound & { event: "records_cited" });
+        | (ChatResultMessageChunkEvent$.Inbound & { event: Event.MessageChunk })
+        | (ChatResultRecordsCitedEvent$.Inbound & {
+              event: ChatResultRecordsCitedEventEvent.RecordsCited;
+          });
 
     export type Outbound =
-        | (ChatResultMessageChunkEvent$.Outbound & { event: "message_chunk" })
-        | (ChatResultRecordsCitedEvent$.Outbound & { event: "records_cited" });
+        | (ChatResultMessageChunkEvent$.Outbound & { event: Event.MessageChunk })
+        | (ChatResultRecordsCitedEvent$.Outbound & {
+              event: ChatResultRecordsCitedEventEvent.RecordsCited;
+          });
 
     export const inboundSchema: z.ZodType<ChatResultStream, z.ZodTypeDef, Inbound> = z.union([
         ChatResultMessageChunkEvent$.inboundSchema.and(
-            z.object({ event: z.literal("message_chunk") }).transform((v) => ({ event: v.event }))
+            z
+                .object({ event: z.literal(Event.MessageChunk) })
+                .transform((v) => ({ event: v.event }))
         ),
         ChatResultRecordsCitedEvent$.inboundSchema.and(
-            z.object({ event: z.literal("records_cited") }).transform((v) => ({ event: v.event }))
+            z
+                .object({ event: z.literal(ChatResultRecordsCitedEventEvent.RecordsCited) })
+                .transform((v) => ({ event: v.event }))
         ),
     ]);
 
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, ChatResultStream> = z.union([
         ChatResultMessageChunkEvent$.outboundSchema.and(
-            z.object({ event: z.literal("message_chunk") }).transform((v) => ({ event: v.event }))
+            z
+                .object({ event: z.literal(Event.MessageChunk) })
+                .transform((v) => ({ event: v.event }))
         ),
         ChatResultRecordsCitedEvent$.outboundSchema.and(
-            z.object({ event: z.literal("records_cited") }).transform((v) => ({ event: v.event }))
+            z
+                .object({ event: z.literal(ChatResultRecordsCitedEventEvent.RecordsCited) })
+                .transform((v) => ({ event: v.event }))
         ),
     ]);
 }

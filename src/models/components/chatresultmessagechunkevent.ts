@@ -5,24 +5,31 @@
 import { MessageChunk, MessageChunk$ } from "./messagechunk";
 import { z } from "zod";
 
+export enum Event {
+    MessageChunk = "message_chunk",
+}
+
 /**
  * A server-sent event containing a chunk of the message.
  */
 export type ChatResultMessageChunkEvent = {
-    event?: "message_chunk" | undefined;
+    event: Event;
     data: MessageChunk;
 };
 
 /** @internal */
+export const Event$ = z.nativeEnum(Event);
+
+/** @internal */
 export namespace ChatResultMessageChunkEvent$ {
     export type Inbound = {
-        event?: "message_chunk" | undefined;
+        event: Event;
         data: string;
     };
 
     export const inboundSchema: z.ZodType<ChatResultMessageChunkEvent, z.ZodTypeDef, Inbound> = z
         .object({
-            event: z.literal("message_chunk").optional(),
+            event: Event$,
             data: z
                 .string()
                 .transform((v, ctx) => {
@@ -40,19 +47,19 @@ export namespace ChatResultMessageChunkEvent$ {
         })
         .transform((v) => {
             return {
-                ...(v.event === undefined ? null : { event: v.event }),
+                event: v.event,
                 data: v.data,
             };
         });
 
     export type Outbound = {
-        event: "message_chunk";
+        event: Event;
         data: MessageChunk$.Outbound;
     };
 
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, ChatResultMessageChunkEvent> = z
         .object({
-            event: z.literal("message_chunk").default("message_chunk" as const),
+            event: Event$,
             data: MessageChunk$.outboundSchema,
         })
         .transform((v) => {

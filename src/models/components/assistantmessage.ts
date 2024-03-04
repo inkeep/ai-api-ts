@@ -5,43 +5,50 @@
 import { RecordsCited, RecordsCited$ } from "./recordscited";
 import { z } from "zod";
 
+export enum AssistantMessageRole {
+    Assistant = "assistant",
+}
+
 export type AssistantMessage = {
-    role?: "assistant" | undefined;
+    role: AssistantMessageRole;
     content: string;
     recordsCited?: RecordsCited | undefined;
 };
 
 /** @internal */
+export const AssistantMessageRole$ = z.nativeEnum(AssistantMessageRole);
+
+/** @internal */
 export namespace AssistantMessage$ {
     export type Inbound = {
-        role?: "assistant" | undefined;
+        role: AssistantMessageRole;
         content: string;
         records_cited?: RecordsCited$.Inbound | undefined;
     };
 
     export const inboundSchema: z.ZodType<AssistantMessage, z.ZodTypeDef, Inbound> = z
         .object({
-            role: z.literal("assistant").optional(),
+            role: AssistantMessageRole$,
             content: z.string(),
             records_cited: RecordsCited$.inboundSchema.optional(),
         })
         .transform((v) => {
             return {
-                ...(v.role === undefined ? null : { role: v.role }),
+                role: v.role,
                 content: v.content,
                 ...(v.records_cited === undefined ? null : { recordsCited: v.records_cited }),
             };
         });
 
     export type Outbound = {
-        role: "assistant";
+        role: AssistantMessageRole;
         content: string;
         records_cited?: RecordsCited$.Outbound | undefined;
     };
 
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, AssistantMessage> = z
         .object({
-            role: z.literal("assistant").default("assistant" as const),
+            role: AssistantMessageRole$,
             content: z.string(),
             recordsCited: RecordsCited$.outboundSchema.optional(),
         })

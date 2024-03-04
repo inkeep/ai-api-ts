@@ -36,7 +36,7 @@ For supported JavaScript runtimes, please consult [RUNTIMES.md](RUNTIMES.md).
 
 ```typescript
 import { InkeepAI } from "@inkeep/ai-api";
-import { ChatModeOptions } from "@inkeep/ai-api/models/components";
+import { ChatModeOptions, Role } from "@inkeep/ai-api/models/components";
 
 async function run() {
     const sdk = new InkeepAI({
@@ -48,6 +48,7 @@ async function run() {
         chatSession: {
             messages: [
                 {
+                    role: Role.User,
                     content: "<value>",
                 },
             ],
@@ -89,7 +90,7 @@ underlying connection.
 
 ```typescript
 import { InkeepAI } from "@inkeep/ai-api";
-import { ChatModeOptions } from "@inkeep/ai-api/models/components";
+import { ChatModeOptions, Role } from "@inkeep/ai-api/models/components";
 
 async function run() {
     const sdk = new InkeepAI({
@@ -101,6 +102,7 @@ async function run() {
         chatSession: {
             messages: [
                 {
+                    role: Role.User,
                     content: "<value>",
                 },
             ],
@@ -140,7 +142,7 @@ Validation errors can also occur when either method arguments or data returned f
 
 ```typescript
 import { InkeepAI } from "@inkeep/ai-api";
-import { ChatModeOptions } from "@inkeep/ai-api/models/components";
+import { ChatModeOptions, Role } from "@inkeep/ai-api/models/components";
 import * as errors from "@inkeep/ai-api/models/errors";
 
 async function run() {
@@ -155,6 +157,7 @@ async function run() {
             chatSession: {
                 messages: [
                     {
+                        role: Role.User,
                         content: "<value>",
                     },
                 ],
@@ -207,7 +210,7 @@ You can override the default server globally by passing a server index to the `s
 
 ```typescript
 import { InkeepAI } from "@inkeep/ai-api";
-import { ChatModeOptions } from "@inkeep/ai-api/models/components";
+import { ChatModeOptions, Role } from "@inkeep/ai-api/models/components";
 
 async function run() {
     const sdk = new InkeepAI({
@@ -220,6 +223,7 @@ async function run() {
         chatSession: {
             messages: [
                 {
+                    role: Role.User,
                     content: "<value>",
                 },
             ],
@@ -247,7 +251,7 @@ The default server can also be overridden globally by passing a URL to the `serv
 
 ```typescript
 import { InkeepAI } from "@inkeep/ai-api";
-import { ChatModeOptions } from "@inkeep/ai-api/models/components";
+import { ChatModeOptions, Role } from "@inkeep/ai-api/models/components";
 
 async function run() {
     const sdk = new InkeepAI({
@@ -260,6 +264,7 @@ async function run() {
         chatSession: {
             messages: [
                 {
+                    role: Role.User,
                     content: "<value>",
                 },
             ],
@@ -344,7 +349,7 @@ This SDK supports the following security scheme globally:
 To authenticate with the API the `apiKey` parameter must be set when initializing the SDK client instance. For example:
 ```typescript
 import { InkeepAI } from "@inkeep/ai-api";
-import { ChatModeOptions } from "@inkeep/ai-api/models/components";
+import { ChatModeOptions, Role } from "@inkeep/ai-api/models/components";
 
 async function run() {
     const sdk = new InkeepAI({
@@ -356,6 +361,7 @@ async function run() {
         chatSession: {
             messages: [
                 {
+                    role: Role.User,
                     content: "<value>",
                 },
             ],

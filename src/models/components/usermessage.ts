@@ -4,38 +4,45 @@
 
 import { z } from "zod";
 
+export enum Role {
+    User = "user",
+}
+
 export type UserMessage = {
-    role?: "user" | undefined;
+    role: Role;
     content: string;
 };
 
 /** @internal */
+export const Role$ = z.nativeEnum(Role);
+
+/** @internal */
 export namespace UserMessage$ {
     export type Inbound = {
-        role?: "user" | undefined;
+        role: Role;
         content: string;
     };
 
     export const inboundSchema: z.ZodType<UserMessage, z.ZodTypeDef, Inbound> = z
         .object({
-            role: z.literal("user").optional(),
+            role: Role$,
             content: z.string(),
         })
         .transform((v) => {
             return {
-                ...(v.role === undefined ? null : { role: v.role }),
+                role: v.role,
                 content: v.content,
             };
         });
 
     export type Outbound = {
-        role: "user";
+        role: Role;
         content: string;
     };
 
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, UserMessage> = z
         .object({
-            role: z.literal("user").default("user" as const),
+            role: Role$,
             content: z.string(),
         })
         .transform((v) => {

@@ -18,7 +18,7 @@ Create Chat Session
 
 ```typescript
 import { InkeepAI } from "@inkeep/ai-api";
-import { ChatModeOptions } from "@inkeep/ai-api/models/components";
+import { ChatModeOptions, Role } from "@inkeep/ai-api/models/components";
 
 async function run() {
   const sdk = new InkeepAI({
@@ -30,6 +30,7 @@ async function run() {
     chatSession: {
       messages: [
           {
+            role: Role.User,
             content: "<value>",
           },
       ],
@@ -76,6 +77,7 @@ Continue Chat Session
 
 ```typescript
 import { InkeepAI } from "@inkeep/ai-api";
+import { AssistantMessageRole } from "@inkeep/ai-api/models/components";
 
 async function run() {
   const sdk = new InkeepAI({
@@ -86,6 +88,7 @@ async function run() {
   const continueChatSessionWithChatResultInput = {
     integrationId: "<value>",
   message:     {
+        role: AssistantMessageRole.Assistant,
         content: "<value>",
         recordsCited: {
           citations: [

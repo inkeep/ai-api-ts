@@ -1,7 +1,7 @@
 <!-- Start SDK Example Usage [usage] -->
 ```typescript
 import { InkeepAI } from "@inkeep/ai-api";
-import { ChatModeOptions } from "@inkeep/ai-api/models/components";
+import { ChatModeOptions, Role } from "@inkeep/ai-api/models/components";
 
 async function run() {
     const sdk = new InkeepAI({
@@ -13,6 +13,7 @@ async function run() {
         chatSession: {
             messages: [
                 {
+                    role: Role.User,
                     content: "<value>",
                 },
             ],
