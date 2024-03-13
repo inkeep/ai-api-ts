@@ -3,7 +3,7 @@
  */
 
 import { RecordT, RecordT$ } from "./record";
-import { z } from "zod";
+import * as z from "zod";
 
 export type Citation = {
     number?: number | undefined;

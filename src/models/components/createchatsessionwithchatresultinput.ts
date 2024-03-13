@@ -3,7 +3,7 @@
  */
 
 import { ChatSessionInput, ChatSessionInput$ } from "./chatsessioninput";
-import { z } from "zod";
+import * as z from "zod";
 
 export enum ChatModeOptions {
     Turbo = "turbo",
@@ -27,12 +27,10 @@ export namespace ChatMode$ {
     export type Inbound = ChatModeOptions | string;
 
     export type Outbound = ChatModeOptions | string;
-
     export const inboundSchema: z.ZodType<ChatMode, z.ZodTypeDef, Inbound> = z.union([
         ChatModeOptions$,
         z.string(),
     ]);
-
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, ChatMode> = z.union([
         ChatModeOptions$,
         z.string(),

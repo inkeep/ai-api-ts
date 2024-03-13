@@ -3,7 +3,7 @@
  */
 
 import { AssistantMessage, AssistantMessage$ } from "./assistantmessage";
-import { z } from "zod";
+import * as z from "zod";
 
 export type ChatResult = {
     chatSessionId: string;

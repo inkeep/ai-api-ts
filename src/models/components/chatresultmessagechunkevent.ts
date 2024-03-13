@@ -3,7 +3,7 @@
  */
 
 import { MessageChunk, MessageChunk$ } from "./messagechunk";
-import { z } from "zod";
+import * as z from "zod";
 
 export enum Event {
     MessageChunk = "message_chunk",

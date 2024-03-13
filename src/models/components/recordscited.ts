@@ -3,7 +3,7 @@
  */
 
 import { Citation, Citation$ } from "./citation";
-import { z } from "zod";
+import * as z from "zod";
 
 export type RecordsCited = {
     citations: Array<Citation>;

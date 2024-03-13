@@ -3,7 +3,7 @@
  */
 
 import { RecordType, RecordType$ } from "./recordtype";
-import { z } from "zod";
+import * as z from "zod";
 
 export type RecordT = {
     /**

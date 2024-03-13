@@ -3,7 +3,7 @@
  */
 
 import { RecordsCited, RecordsCited$ } from "./recordscited";
-import { z } from "zod";
+import * as z from "zod";
 
 export enum ChatResultRecordsCitedEventEvent {
     RecordsCited = "records_cited",

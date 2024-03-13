@@ -3,7 +3,7 @@
  */
 
 import { Message, Message$ } from "./message";
-import { z } from "zod";
+import * as z from "zod";
 
 export type ContinueChatSessionWithChatResultInput = {
     integrationId: string;

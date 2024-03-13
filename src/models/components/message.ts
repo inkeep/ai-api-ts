@@ -4,7 +4,7 @@
 
 import { AssistantMessage, AssistantMessage$, AssistantMessageRole } from "./assistantmessage";
 import { Role, UserMessage, UserMessage$ } from "./usermessage";
-import { z } from "zod";
+import * as z from "zod";
 
 export type Message =
     | (UserMessage & { role: Role.User })
@@ -19,7 +19,6 @@ export namespace Message$ {
     export type Outbound =
         | (UserMessage$.Outbound & { role: Role.User })
         | (AssistantMessage$.Outbound & { role: AssistantMessageRole.Assistant });
-
     export const inboundSchema: z.ZodType<Message, z.ZodTypeDef, Inbound> = z.union([
         UserMessage$.inboundSchema.and(
             z.object({ role: z.literal(Role.User) }).transform((v) => ({ role: v.role }))
@@ -30,7 +29,6 @@ export namespace Message$ {
                 .transform((v) => ({ role: v.role }))
         ),
     ]);
-
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Message> = z.union([
         UserMessage$.outboundSchema.and(
             z.object({ role: z.literal(Role.User) }).transform((v) => ({ role: v.role }))

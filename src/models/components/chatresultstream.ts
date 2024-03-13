@@ -12,7 +12,7 @@ import {
     ChatResultRecordsCitedEvent$,
     ChatResultRecordsCitedEventEvent,
 } from "./chatresultrecordscitedevent";
-import { z } from "zod";
+import * as z from "zod";
 
 export type ChatResultStream =
     | (ChatResultMessageChunkEvent & { event: Event.MessageChunk })
@@ -31,7 +31,6 @@ export namespace ChatResultStream$ {
         | (ChatResultRecordsCitedEvent$.Outbound & {
               event: ChatResultRecordsCitedEventEvent.RecordsCited;
           });
-
     export const inboundSchema: z.ZodType<ChatResultStream, z.ZodTypeDef, Inbound> = z.union([
         ChatResultMessageChunkEvent$.inboundSchema.and(
             z
@@ -44,7 +43,6 @@ export namespace ChatResultStream$ {
                 .transform((v) => ({ event: v.event }))
         ),
     ]);
-
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, ChatResultStream> = z.union([
         ChatResultMessageChunkEvent$.outboundSchema.and(
             z
