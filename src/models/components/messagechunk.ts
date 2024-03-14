@@ -4,7 +4,7 @@
 
 import * as z from "zod";
 
-export enum FinishReason {
+export enum Four {
     Stop = "stop",
     Length = "length",
     ContentFilter = "content_filter",
@@ -13,25 +13,25 @@ export enum FinishReason {
 export type MessageChunk = {
     chatSessionId?: string | null | undefined;
     contentChunk: string;
-    finishReason?: FinishReason | null | undefined;
+    finishReason?: any | null | undefined;
 };
 
 /** @internal */
-export const FinishReason$ = z.nativeEnum(FinishReason);
+export const Four$ = z.nativeEnum(Four);
 
 /** @internal */
 export namespace MessageChunk$ {
     export type Inbound = {
         chat_session_id?: string | null | undefined;
         content_chunk: string;
-        finish_reason?: FinishReason | null | undefined;
+        finish_reason?: any | null | undefined;
     };
 
     export const inboundSchema: z.ZodType<MessageChunk, z.ZodTypeDef, Inbound> = z
         .object({
             chat_session_id: z.nullable(z.string()).optional(),
             content_chunk: z.string(),
-            finish_reason: z.nullable(FinishReason$).optional(),
+            finish_reason: z.nullable(z.any()).optional(),
         })
         .transform((v) => {
             return {
@@ -44,14 +44,14 @@ export namespace MessageChunk$ {
     export type Outbound = {
         chat_session_id?: string | null | undefined;
         content_chunk: string;
-        finish_reason?: FinishReason | null | undefined;
+        finish_reason?: any | null | undefined;
     };
 
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, MessageChunk> = z
         .object({
             chatSessionId: z.nullable(z.string()).optional(),
             contentChunk: z.string(),
-            finishReason: z.nullable(FinishReason$).optional(),
+            finishReason: z.nullable(z.any()).optional(),
         })
         .transform((v) => {
             return {

@@ -1,6 +1,6 @@
 {
   "name": "@inkeep/ai-api",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "author": "Nick Gomez",
   "main": "./index.js",
   "sideEffects": false,

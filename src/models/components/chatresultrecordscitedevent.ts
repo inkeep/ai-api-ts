@@ -5,31 +5,24 @@
 import { RecordsCited, RecordsCited$ } from "./recordscited";
 import * as z from "zod";
 
-export enum ChatResultRecordsCitedEventEvent {
-    RecordsCited = "records_cited",
-}
-
 /**
  * A server-sent event with information about the records cited in the message.
  */
 export type ChatResultRecordsCitedEvent = {
-    event: ChatResultRecordsCitedEventEvent;
+    event?: "records_cited" | undefined;
     data: RecordsCited;
 };
 
 /** @internal */
-export const ChatResultRecordsCitedEventEvent$ = z.nativeEnum(ChatResultRecordsCitedEventEvent);
-
-/** @internal */
 export namespace ChatResultRecordsCitedEvent$ {
     export type Inbound = {
-        event: ChatResultRecordsCitedEventEvent;
+        event?: "records_cited" | undefined;
         data: string;
     };
 
     export const inboundSchema: z.ZodType<ChatResultRecordsCitedEvent, z.ZodTypeDef, Inbound> = z
         .object({
-            event: ChatResultRecordsCitedEventEvent$,
+            event: z.literal("records_cited").optional(),
             data: z
                 .string()
                 .transform((v, ctx) => {
@@ -47,19 +40,19 @@ export namespace ChatResultRecordsCitedEvent$ {
         })
         .transform((v) => {
             return {
-                event: v.event,
+                ...(v.event === undefined ? null : { event: v.event }),
                 data: v.data,
             };
         });
 
     export type Outbound = {
-        event: ChatResultRecordsCitedEventEvent;
+        event: "records_cited";
         data: RecordsCited$.Outbound;
     };
 
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, ChatResultRecordsCitedEvent> = z
         .object({
-            event: ChatResultRecordsCitedEventEvent$,
+            event: z.literal("records_cited").default("records_cited" as const),
             data: RecordsCited$.outboundSchema,
         })
         .transform((v) => {
