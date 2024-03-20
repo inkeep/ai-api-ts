@@ -3,7 +3,7 @@
  */
 
 import { EventStream } from "../../lib/event-streams";
-import * as components from "../../models/components";
+import * as components from "../components";
 import * as z from "zod";
 
 export type CreateResponse = {
