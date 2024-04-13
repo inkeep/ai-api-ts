@@ -38,12 +38,12 @@ For supported JavaScript runtimes, please consult [RUNTIMES.md](RUNTIMES.md).
 import { InkeepAI } from "@inkeep/ai-api";
 import { ChatModeOptions } from "@inkeep/ai-api/models/components";
 
-async function run() {
-    const sdk = new InkeepAI({
-        apiKey: "<YOUR_BEARER_TOKEN_HERE>",
-    });
+const inkeepAI = new InkeepAI({
+    apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+});
 
-    const result = await sdk.chatSession.create({
+async function run() {
+    const result = await inkeepAI.chatSession.create({
         integrationId: "<value>",
         chatSession: {
             messages: [
@@ -91,12 +91,12 @@ underlying connection.
 import { InkeepAI } from "@inkeep/ai-api";
 import { ChatModeOptions } from "@inkeep/ai-api/models/components";
 
-async function run() {
-    const sdk = new InkeepAI({
-        apiKey: "<YOUR_BEARER_TOKEN_HERE>",
-    });
+const inkeepAI = new InkeepAI({
+    apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+});
 
-    const result = await sdk.chatSession.create({
+async function run() {
+    const result = await inkeepAI.chatSession.create({
         integrationId: "<value>",
         chatSession: {
             messages: [
@@ -143,14 +143,14 @@ import { InkeepAI } from "@inkeep/ai-api";
 import { ChatModeOptions } from "@inkeep/ai-api/models/components";
 import * as errors from "@inkeep/ai-api/models/errors";
 
-async function run() {
-    const sdk = new InkeepAI({
-        apiKey: "<YOUR_BEARER_TOKEN_HERE>",
-    });
+const inkeepAI = new InkeepAI({
+    apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+});
 
+async function run() {
     let result;
     try {
-        result = await sdk.chatSession.create({
+        result = await inkeepAI.chatSession.create({
             integrationId: "<value>",
             chatSession: {
                 messages: [
@@ -209,13 +209,13 @@ You can override the default server globally by passing a server index to the `s
 import { InkeepAI } from "@inkeep/ai-api";
 import { ChatModeOptions } from "@inkeep/ai-api/models/components";
 
-async function run() {
-    const sdk = new InkeepAI({
-        serverIdx: 0,
-        apiKey: "<YOUR_BEARER_TOKEN_HERE>",
-    });
+const inkeepAI = new InkeepAI({
+    serverIdx: 0,
+    apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+});
 
-    const result = await sdk.chatSession.create({
+async function run() {
+    const result = await inkeepAI.chatSession.create({
         integrationId: "<value>",
         chatSession: {
             messages: [
@@ -249,13 +249,13 @@ The default server can also be overridden globally by passing a URL to the `serv
 import { InkeepAI } from "@inkeep/ai-api";
 import { ChatModeOptions } from "@inkeep/ai-api/models/components";
 
-async function run() {
-    const sdk = new InkeepAI({
-        serverURL: "https://api.inkeep.com",
-        apiKey: "<YOUR_BEARER_TOKEN_HERE>",
-    });
+const inkeepAI = new InkeepAI({
+    serverURL: "https://api.inkeep.com",
+    apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+});
 
-    const result = await sdk.chatSession.create({
+async function run() {
+    const result = await inkeepAI.chatSession.create({
         integrationId: "<value>",
         chatSession: {
             messages: [
@@ -346,12 +346,12 @@ To authenticate with the API the `apiKey` parameter must be set when initializin
 import { InkeepAI } from "@inkeep/ai-api";
 import { ChatModeOptions } from "@inkeep/ai-api/models/components";
 
-async function run() {
-    const sdk = new InkeepAI({
-        apiKey: "<YOUR_BEARER_TOKEN_HERE>",
-    });
+const inkeepAI = new InkeepAI({
+    apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+});
 
-    const result = await sdk.chatSession.create({
+async function run() {
+    const result = await inkeepAI.chatSession.create({
         integrationId: "<value>",
         chatSession: {
             messages: [

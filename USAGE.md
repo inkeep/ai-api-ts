@@ -3,12 +3,12 @@
 import { InkeepAI } from "@inkeep/ai-api";
 import { ChatModeOptions } from "@inkeep/ai-api/models/components";
 
-async function run() {
-    const sdk = new InkeepAI({
-        apiKey: "<YOUR_BEARER_TOKEN_HERE>",
-    });
+const inkeepAI = new InkeepAI({
+    apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+});
 
-    const result = await sdk.chatSession.create({
+async function run() {
+    const result = await inkeepAI.chatSession.create({
         integrationId: "<value>",
         chatSession: {
             messages: [
