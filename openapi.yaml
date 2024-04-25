@@ -8,17 +8,106 @@ servers:
     description: Production server
 security:
   - api_key: []
+tags: 
+  - name: chat_session
+    description: Create and manage chat sessions for users. Chat history and continuation of chat is automatically done.
 paths:
   /v0/chat_sessions/chat_results:
     post:
-      summary: Create Chat Session and receive a Chat Result
-      operationId: createChatSessionWithChatResult
+      summary: Create Chat Session
+      operationId: create
+      tags: [chat_session]
       requestBody:
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/CreateChatSessionWithChatResultInput'
         required: true
+      x-codeSamples:
+        - lang: 'typescript'
+          label: 'create_chat_session'
+          source: |
+            import { InkeepAI } from "@inkeep/ai-api";
+
+            async function run() {
+              const sdk = new InkeepAI({
+                apiKey: "<INKEEP_API_KEY>",
+              });
+
+              const result = await sdk.chatSession.create({
+                integrationId: "<INKEEP_INTEGRATION_ID>",
+                chatSession: {
+                  messages: [
+                    {
+                      role: "user",
+                      content: "How do I get started?",
+                    },
+                  ],
+                },
+                stream: true,
+              });
+
+              /* Example of handling a streamed response */
+              if (res.chatResultStream == null) {
+                throw new Error("failed to create stream: received null value");
+              }
+
+              let chatSessionId: string | undefined | null = undefined;
+
+              for await (const event of res.chatResultStream) {
+                if (event.event == "message_chunk") {
+                  console.log("Partial message: " + event.data.contentChunk);
+                  chatSessionId = event.data.chatSessionId;
+                }
+                if (event.event == "records_cited") {
+                  console.log("Citations: ", JSON.stringify(event.data.citations, null, 2));
+                }
+              }
+            }
+
+            run();
+        - lang: 'typescript'
+          label: 'create_chat_session_streamed'
+          source: |
+            import { InkeepAI } from "@inkeep/ai-api";
+
+            async function run() {
+              const sdk = new InkeepAI({
+                apiKey: "<INKEEP_API_KEY>",
+              });
+
+              const result = await sdk.chatSession.create({
+                integrationId: "<INKEEP_INTEGRATION_ID>",
+                chatSession: {
+                  messages: [
+                    {
+                      role: "user",
+                      content: "How do I get started?",
+                    },
+                  ],
+                },
+                stream: true,
+              });
+
+              /* Example of handling a streamed response */
+              if (result.chatResultStream == null) {
+                throw new Error("failed to create stream: received null value");
+              }
+
+              let chatSessionId: string | undefined | null = undefined;
+
+              for await (const event of result.chatResultStream) {
+                if (event.event == "message_chunk") {
+                  console.log("Partial message: " + event.data.contentChunk);
+                  chatSessionId = event.data.chatSessionId;
+                }
+                if (event.event == "records_cited") {
+                  console.log("Citations: ", JSON.stringify(event.data.citations, null, 2));
+                }
+              }
+            }
+
+            run();
       responses:
         '200':
           description: Successful Response
@@ -28,7 +117,7 @@ paths:
                 $ref: '#/components/schemas/ChatResult'
             text/event-stream:
               schema:
-                $ref: '#/components/schemas/ChatResultStreamEvent'
+                $ref: '#/components/schemas/ChatResultStream'
         '422':
           description: Validation Error
           content:
@@ -37,8 +126,9 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
   /v0/chat_sessions/{chat_session_id}/chat_results:
     post:
-      summary: Continue Chat Session and receive a Chat Result
-      operationId: continueChatSessionWithChatResult
+      summary: Continue Chat Session
+      operationId: continue
+      tags: [chat_session]
       parameters:
         - required: true
           schema:
@@ -52,6 +142,71 @@ paths:
             schema:
               $ref: '#/components/schemas/ContinueChatSessionWithChatResultInput'
         required: true
+      x-codeSamples:
+        - lang: 'typescript'
+          label: 'continue_chat_session'
+          source: |
+            import { InkeepAI } from "@inkeep/ai-api";
+
+            async function run() {
+              const sdk = new InkeepAI({
+                apiKey: "<INKEEP_API_KEY>",
+              });
+
+              const chatSessionId = "<CHAT_SESSION_ID>";
+
+              const continuedChat = await sdk.chatSession.continue(chatSessionId, {
+                integrationId: "<INKEEP_INTEGRATION_ID>",
+                message: {
+                  role: "user",
+                  content: "What's next?",
+                },
+                stream: false,
+              });
+
+              /* Example of handling a non-streamed response */
+
+              if (continuedChat.chatResult == null) {
+                throw new Error("Empty chat result");
+              }
+
+              console.log("Full message:", continuedChat.chatResult.message.content);
+              console.log("Citations: ", JSON.stringify(continuedChat.chatResult.message.recordsCited, null, 2));
+            }
+
+            run();
+        - lang: 'typescript'
+          label: 'continue_chat_session_streamed'
+          source: |
+            import { InkeepAI } from "@inkeep/ai-api";
+
+            async function run() {
+              const sdk = new InkeepAI({
+                apiKey: "<INKEEP_API_KEY>",
+              });
+
+              const chatSessionId = "string";
+
+              const continuedChat = await sdk.chatSession.continue(chatSessionId, {
+                integrationId: "<INKEEP_INTEGRATION_ID>",
+                message: {
+                  role: "user",
+                  content: "What's next?",
+                },
+                stream: false,
+              });
+
+              /* Example of handling a none-streamed response */
+
+              if (continuedChat.chatResult == null) {
+                throw new Error("Empty chat result");
+              }
+
+              console.log("Full message:", continuedChat.chatResult.message.content);
+              console.log("Citations: ", JSON.stringify(continuedChat.chatResult.message.recordsCited, null, 2));
+            }
+
+            run();
       responses:
         '200':
           description: Successful Response
@@ -61,7 +216,7 @@ paths:
                 $ref: '#/components/schemas/ChatResult'
             text/event-stream:
               schema:
-                $ref: '#/components/schemas/ChatResultStreamEvent'
+                $ref: '#/components/schemas/ChatResultStream'
         '422':
           description: Validation Error
           content:
@@ -86,8 +241,8 @@ components:
           type: string
         message:
           $ref: '#/components/schemas/AssistantMessage'
-    ChatResultStreamEvent:
-      title: Chat Result Stream Event
+    ChatResultStream:
+      title: The event types that can be emitted as part of a streamed Chat Result
       oneOf:
         - $ref: '#/components/schemas/ChatResultMessageChunkEvent'
         - $ref: '#/components/schemas/ChatResultRecordsCitedEvent'
@@ -123,6 +278,14 @@ components:
         - messages
       type: object
       properties:
+        guidance:
+          title: Guidance
+          type: string
+          nullable: true
+        context:
+          title: Context
+          type: string
+          nullable: true
         messages:
           title: Messages
           type: array
@@ -130,10 +293,14 @@ components:
           maxItems: 1
           items:
             $ref: '#/components/schemas/Message'
+        tags:
+          title: Tags
+          type: array
+          items:
+            type: string
     Citation:
       title: Citation
       required:
-        - number
         - record
       type: object
       properties:
@@ -145,8 +312,9 @@ components:
         hit_url:
           title: Hit URL
           type: string
+          nullable: true
     ContinueChatSessionWithChatResultInput:
-      title: Continue Chat Session with Chat Result Input
+      title: Continue Chat Session Input
       required:
         - integration_id
         - message
@@ -162,7 +330,7 @@ components:
           type: boolean
           default: false
     CreateChatSessionWithChatResultInput:
-      title: Create Chat Session with Chat Result Input
+      title: Create Chat Session Input
       required:
         - integration_id
         - chat_session
@@ -175,8 +343,12 @@ components:
           $ref: '#/components/schemas/ChatSessionInput'
         chat_mode:
           title: Chat Mode
-          type: string
-          default: auto
+          oneOf:
+            - type: string
+              enum: ["turbo", "auto"]
+              title: ChatModeOptions
+              $anchor: ChatModeOptions
+            - type: string
         stream:
           title: Stream
           type: boolean
@@ -236,12 +408,21 @@ components:
         chat_session_id:
           title: Chat Session ID
           type: string
+          nullable: true
         content_chunk:
           title: Content Chunk
           type: string
-          finish_reason:
-            type: string
-            enum: ["stop", "length", "content_filter"]
+        finish_reason:
+          oneOf:
+            - type: string
+              const: "stop"
+            - type: string
+              const: "length"
+            - type: string
+              const: "content_filter"
+            - type: string
+              enum: ["stop", "length", "content_filter"]
+          nullable: true
     Record:
       required:
         - type
@@ -252,10 +433,17 @@ components:
         url:
           title: URL
           type: string
+          nullable: true
         title:
           title: Title
           type: string
+          nullable: true
+        description:
+          title: Description
+          type: string
+          nullable: true
         breadcrumbs:
+          nullable: true
           title: Breadcrumbs
           type: array
           items:
@@ -275,13 +463,14 @@ components:
       title: Record Type
       description: The type of record
       oneOf:
-        - enum: [documentation, site, discourse_post, github_issue, github_discussion, stackoverflow_question, discord_forum_post, discord_message]
+        - enum: [documentation, site, discourse_post, github_issue, github_discussion, stackoverflow_question, discord_forum_post, discord_message, custom_question_answer]
           type: string
+          $anchor: RecordTypeEnumerated
           title: RecordTypeEnumerated
-        - title: other
-          type: string
+        - type: string
+          title: other
     ValidationError:
-      title: Validation Error
+      title: ValidationError
       required:
         - loc
         - msg
