@@ -1,0 +1,17 @@
+speakeasyVersion: 1.274.1
+sources: {}
+targets: {}
+workflow:
+    workflowVersion: 1.0.0
+    speakeasyVersion: latest
+    sources:
+        my-source:
+            inputs:
+                - location: https://raw.githubusercontent.com/inkeep/chat-api-openapi-schema/main/openapi.yaml
+    targets:
+        ai-api-ts:
+            target: typescript
+            source: my-source
+            publish:
+                npm:
+                    token: $NPM_TOKEN

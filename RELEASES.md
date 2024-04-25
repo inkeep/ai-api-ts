@@ -229,3 +229,13 @@ Based on:
 - [typescript v0.6.2] .
 ### Releases
 - [NPM v0.6.2] https://www.npmjs.com/package/@inkeep/ai-api/v/0.6.2 - .
+
+## 2024-04-25 12:51:37
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.274.1 (2.314.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [typescript v0.7.0] .
+### Releases
+- [NPM v0.7.0] https://www.npmjs.com/package/@inkeep/ai-api/v/0.7.0 - .

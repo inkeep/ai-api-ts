@@ -22,7 +22,8 @@ export enum RecordTypeEnumerated {
 export type RecordType = RecordTypeEnumerated | string;
 
 /** @internal */
-export const RecordTypeEnumerated$ = z.nativeEnum(RecordTypeEnumerated);
+export const RecordTypeEnumerated$: z.ZodNativeEnum<typeof RecordTypeEnumerated> =
+    z.nativeEnum(RecordTypeEnumerated);
 
 /** @internal */
 export namespace RecordType$ {
