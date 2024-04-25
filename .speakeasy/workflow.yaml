@@ -10,4 +10,4 @@ targets:
         source: my-source
         publish:
             npm:
-                token: $NPM_TOKEN
+                token: $npm_token
