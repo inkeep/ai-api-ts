@@ -5,8 +5,8 @@ management:
   docVersion: 0.1.0
   speakeasyVersion: 1.274.1
   generationVersion: 2.314.0
-  releaseVersion: 0.7.0
-  configChecksum: 0de534d4b2df2443c3248233d4d9b298
+  releaseVersion: 0.7.1
+  configChecksum: 2479e0b3df0ef3789a98ffc2f0ff6734
   repoURL: https://github.com/inkeep/ai-api-ts.git
   repoSubDirectory: .
   installationURL: https://github.com/inkeep/ai-api-ts
