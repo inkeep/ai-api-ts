@@ -9,6 +9,7 @@ export type ChatSessionInput = {
     guidance?: string | null | undefined;
     context?: string | null | undefined;
     messages: Array<Message>;
+    tags?: Array<string> | undefined;
 };
 
 /** @internal */
@@ -17,6 +18,7 @@ export namespace ChatSessionInput$ {
         guidance?: string | null | undefined;
         context?: string | null | undefined;
         messages: Array<Message$.Inbound>;
+        tags?: Array<string> | undefined;
     };
 
     export const inboundSchema: z.ZodType<ChatSessionInput, z.ZodTypeDef, Inbound> = z
@@ -24,12 +26,14 @@ export namespace ChatSessionInput$ {
             guidance: z.nullable(z.string()).optional(),
             context: z.nullable(z.string()).optional(),
             messages: z.array(Message$.inboundSchema),
+            tags: z.array(z.string()).optional(),
         })
         .transform((v) => {
             return {
                 ...(v.guidance === undefined ? null : { guidance: v.guidance }),
                 ...(v.context === undefined ? null : { context: v.context }),
                 messages: v.messages,
+                ...(v.tags === undefined ? null : { tags: v.tags }),
             };
         });
 
@@ -37,6 +41,7 @@ export namespace ChatSessionInput$ {
         guidance?: string | null | undefined;
         context?: string | null | undefined;
         messages: Array<Message$.Outbound>;
+        tags?: Array<string> | undefined;
     };
 
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, ChatSessionInput> = z
@@ -44,12 +49,14 @@ export namespace ChatSessionInput$ {
             guidance: z.nullable(z.string()).optional(),
             context: z.nullable(z.string()).optional(),
             messages: z.array(Message$.outboundSchema),
+            tags: z.array(z.string()).optional(),
         })
         .transform((v) => {
             return {
                 ...(v.guidance === undefined ? null : { guidance: v.guidance }),
                 ...(v.context === undefined ? null : { context: v.context }),
                 messages: v.messages,
+                ...(v.tags === undefined ? null : { tags: v.tags }),
             };
         });
 }

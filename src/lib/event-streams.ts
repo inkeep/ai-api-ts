@@ -29,7 +29,7 @@ export class EventStream<Event extends ServerEvent<unknown>> {
         this.decoder = init.decoder;
     }
 
-    async *[Symbol.asyncIterator]() {
+    async *[Symbol.asyncIterator](): AsyncGenerator<Event, void, unknown> {
         const reader = this.stream.getReader();
         let buffer = new Uint8Array([]);
         let position = 0;

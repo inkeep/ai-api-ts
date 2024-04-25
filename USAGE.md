@@ -16,6 +16,7 @@ async function run() {
                     content: "<value>",
                 },
             ],
+            tags: ["<value>"],
         },
         chatMode: ChatModeOptions.Auto,
     });

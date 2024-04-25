@@ -36,7 +36,7 @@ export class InkeepAI extends ClientSDK {
     }
 
     private _chatSession?: ChatSession;
-    get chatSession() {
+    get chatSession(): ChatSession {
         return (this._chatSession ??= new ChatSession(this.options$));
     }
 }

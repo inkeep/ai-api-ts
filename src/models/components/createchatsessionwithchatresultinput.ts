@@ -20,7 +20,8 @@ export type CreateChatSessionWithChatResultInput = {
 };
 
 /** @internal */
-export const ChatModeOptions$ = z.nativeEnum(ChatModeOptions);
+export const ChatModeOptions$: z.ZodNativeEnum<typeof ChatModeOptions> =
+    z.nativeEnum(ChatModeOptions);
 
 /** @internal */
 export namespace ChatMode$ {

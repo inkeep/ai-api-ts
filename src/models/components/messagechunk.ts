@@ -17,7 +17,7 @@ export type MessageChunk = {
 };
 
 /** @internal */
-export const Four$ = z.nativeEnum(Four);
+export const Four$: z.ZodNativeEnum<typeof Four> = z.nativeEnum(Four);
 
 /** @internal */
 export namespace MessageChunk$ {
