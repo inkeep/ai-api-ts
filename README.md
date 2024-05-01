@@ -231,11 +231,11 @@ async function run() {
         chatMode: ChatModeOptions.Auto,
     });
 
-    if (res.chatResultStream == null) {
+    if (result.chatResultStream == null) {
         throw new Error("failed to create stream: received null value");
     }
 
-    for await (const event of res.chatResultStream) {
+    for await (const event of result.chatResultStream) {
         // Handle the event
     }
 }
@@ -272,11 +272,11 @@ async function run() {
         chatMode: ChatModeOptions.Auto,
     });
 
-    if (res.chatResultStream == null) {
+    if (result.chatResultStream == null) {
         throw new Error("failed to create stream: received null value");
     }
 
-    for await (const event of res.chatResultStream) {
+    for await (const event of result.chatResultStream) {
         // Handle the event
     }
 }
@@ -369,11 +369,11 @@ async function run() {
         chatMode: ChatModeOptions.Auto,
     });
 
-    if (res.chatResultStream == null) {
+    if (result.chatResultStream == null) {
         throw new Error("failed to create stream: received null value");
     }
 
-    for await (const event of res.chatResultStream) {
+    for await (const event of result.chatResultStream) {
         // Handle the event
     }
 }

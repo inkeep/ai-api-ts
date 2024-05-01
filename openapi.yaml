@@ -48,13 +48,13 @@ paths:
               });
 
               /* Example of handling a streamed response */
-              if (res.chatResultStream == null) {
+              if (result.chatResultStream == null) {
                 throw new Error("failed to create stream: received null value");
               }
 
               let chatSessionId: string | undefined | null = undefined;
 
-              for await (const event of res.chatResultStream) {
+              for await (const event of result.chatResultStream) {
                 if (event.event == "message_chunk") {
                   console.log("Partial message: " + event.data.contentChunk);
                   chatSessionId = event.data.chatSessionId;
@@ -196,7 +196,7 @@ paths:
                 stream: false,
               });
 
-              /* Example of handling a none-streamed response */
+              /* Example of handling a non-streamed response */
 
               if (continuedChat.chatResult == null) {
                 throw new Error("Empty chat result");
