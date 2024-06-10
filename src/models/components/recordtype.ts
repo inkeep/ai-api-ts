@@ -22,20 +22,21 @@ export enum RecordTypeEnumerated {
 export type RecordType = RecordTypeEnumerated | string;
 
 /** @internal */
-export const RecordTypeEnumerated$: z.ZodNativeEnum<typeof RecordTypeEnumerated> =
-    z.nativeEnum(RecordTypeEnumerated);
+export namespace RecordTypeEnumerated$ {
+    export const inboundSchema = z.nativeEnum(RecordTypeEnumerated);
+    export const outboundSchema = inboundSchema;
+}
 
 /** @internal */
 export namespace RecordType$ {
-    export type Inbound = RecordTypeEnumerated | string;
-
-    export type Outbound = RecordTypeEnumerated | string;
-    export const inboundSchema: z.ZodType<RecordType, z.ZodTypeDef, Inbound> = z.union([
-        RecordTypeEnumerated$,
+    export const inboundSchema: z.ZodType<RecordType, z.ZodTypeDef, unknown> = z.union([
+        RecordTypeEnumerated$.inboundSchema,
         z.string(),
     ]);
+
+    export type Outbound = string | string;
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, RecordType> = z.union([
-        RecordTypeEnumerated$,
+        RecordTypeEnumerated$.outboundSchema,
         z.string(),
     ]);
 }

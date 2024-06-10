@@ -14,28 +14,12 @@ export type ChatSessionInput = {
 
 /** @internal */
 export namespace ChatSessionInput$ {
-    export type Inbound = {
-        guidance?: string | null | undefined;
-        context?: string | null | undefined;
-        messages: Array<Message$.Inbound>;
-        tags?: Array<string> | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<ChatSessionInput, z.ZodTypeDef, Inbound> = z
-        .object({
-            guidance: z.nullable(z.string()).optional(),
-            context: z.nullable(z.string()).optional(),
-            messages: z.array(Message$.inboundSchema),
-            tags: z.array(z.string()).optional(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.guidance === undefined ? null : { guidance: v.guidance }),
-                ...(v.context === undefined ? null : { context: v.context }),
-                messages: v.messages,
-                ...(v.tags === undefined ? null : { tags: v.tags }),
-            };
-        });
+    export const inboundSchema: z.ZodType<ChatSessionInput, z.ZodTypeDef, unknown> = z.object({
+        guidance: z.nullable(z.string()).optional(),
+        context: z.nullable(z.string()).optional(),
+        messages: z.array(Message$.inboundSchema),
+        tags: z.array(z.string()).optional(),
+    });
 
     export type Outbound = {
         guidance?: string | null | undefined;
@@ -44,19 +28,10 @@ export namespace ChatSessionInput$ {
         tags?: Array<string> | undefined;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, ChatSessionInput> = z
-        .object({
-            guidance: z.nullable(z.string()).optional(),
-            context: z.nullable(z.string()).optional(),
-            messages: z.array(Message$.outboundSchema),
-            tags: z.array(z.string()).optional(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.guidance === undefined ? null : { guidance: v.guidance }),
-                ...(v.context === undefined ? null : { context: v.context }),
-                messages: v.messages,
-                ...(v.tags === undefined ? null : { tags: v.tags }),
-            };
-        });
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, ChatSessionInput> = z.object({
+        guidance: z.nullable(z.string()).optional(),
+        context: z.nullable(z.string()).optional(),
+        messages: z.array(Message$.outboundSchema),
+        tags: z.array(z.string()).optional(),
+    });
 }

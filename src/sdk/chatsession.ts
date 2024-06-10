@@ -53,9 +53,10 @@ export class ChatSession extends ClientSDK {
      * Create Chat Session
      */
     async create(
-        input: components.CreateChatSessionWithChatResultInput,
+        request: components.CreateChatSessionWithChatResultInput,
         options?: RequestOptions & { acceptHeaderOverride?: CreateAcceptEnum }
     ): Promise<operations.CreateResponse> {
+        const input$ = request;
         const headers$ = new Headers();
         headers$.set("user-agent", SDK_METADATA.userAgent);
         headers$.set("Content-Type", "application/json");
@@ -65,7 +66,7 @@ export class ChatSession extends ClientSDK {
         headers$.set("Accept", accept);
 
         const payload$ = schemas$.parse(
-            input,
+            input$,
             (value$) =>
                 components.CreateChatSessionWithChatResultInput$.outboundSchema.parse(value$),
             "Input validation failed"
@@ -92,7 +93,7 @@ export class ChatSession extends ClientSDK {
         const securitySettings$ = this.resolveGlobalSecurity(security$);
 
         const doOptions = { context, errorCodes: ["422", "4XX", "5XX"] };
-        const request = this.createRequest$(
+        const request$ = this.createRequest$(
             context,
             {
                 security: securitySettings$,
@@ -105,56 +106,23 @@ export class ChatSession extends ClientSDK {
             options
         );
 
-        const response = await this.do$(request, doOptions);
+        const response = await this.do$(request$, doOptions);
 
         const responseFields$ = {
             ContentType: response.headers.get("content-type") ?? "application/octet-stream",
             StatusCode: response.status,
             RawResponse: response,
+            Headers: {},
         };
 
-        if (this.matchResponse(response, 200, "application/json")) {
-            const responseBody = await response.json();
-            const result = schemas$.parse(
-                responseBody,
-                (val$) => {
-                    return operations.CreateResponse$.inboundSchema.parse({
-                        ...responseFields$,
-                        ChatResult: val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            return result;
-        } else if (this.matchResponse(response, 200, "text/event-stream")) {
-            const result = schemas$.parse(
-                response.body,
-                (val$) => {
-                    return operations.CreateResponse$.inboundSchema.parse({
-                        ...responseFields$,
-                        ChatResultStream: val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            return result;
-        } else if (this.matchResponse(response, 422, "application/json")) {
-            const responseBody = await response.json();
-            const result = schemas$.parse(
-                responseBody,
-                (val$) => {
-                    return errors.HTTPValidationError$.inboundSchema.parse({
-                        ...responseFields$,
-                        ...val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            throw result;
-        } else {
-            const responseBody = await response.text();
-            throw new errors.SDKError("Unexpected API response", response, responseBody);
-        }
+        const [result$] = await this.matcher<operations.CreateResponse>()
+            .json(200, operations.CreateResponse$, { key: "ChatResult" })
+            .sse(200, operations.CreateResponse$, { key: "ChatResultStream" })
+            .json(422, errors.HTTPValidationError$, { err: true })
+            .fail(["4XX", "5XX"])
+            .match(response, { extraFields: responseFields$ });
+
+        return result$;
     }
 
     /**
@@ -214,7 +182,7 @@ export class ChatSession extends ClientSDK {
         const securitySettings$ = this.resolveGlobalSecurity(security$);
 
         const doOptions = { context, errorCodes: ["422", "4XX", "5XX"] };
-        const request = this.createRequest$(
+        const request$ = this.createRequest$(
             context,
             {
                 security: securitySettings$,
@@ -227,55 +195,22 @@ export class ChatSession extends ClientSDK {
             options
         );
 
-        const response = await this.do$(request, doOptions);
+        const response = await this.do$(request$, doOptions);
 
         const responseFields$ = {
             ContentType: response.headers.get("content-type") ?? "application/octet-stream",
             StatusCode: response.status,
             RawResponse: response,
+            Headers: {},
         };
 
-        if (this.matchResponse(response, 200, "application/json")) {
-            const responseBody = await response.json();
-            const result = schemas$.parse(
-                responseBody,
-                (val$) => {
-                    return operations.ContinueResponse$.inboundSchema.parse({
-                        ...responseFields$,
-                        ChatResult: val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            return result;
-        } else if (this.matchResponse(response, 200, "text/event-stream")) {
-            const result = schemas$.parse(
-                response.body,
-                (val$) => {
-                    return operations.ContinueResponse$.inboundSchema.parse({
-                        ...responseFields$,
-                        ChatResultStream: val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            return result;
-        } else if (this.matchResponse(response, 422, "application/json")) {
-            const responseBody = await response.json();
-            const result = schemas$.parse(
-                responseBody,
-                (val$) => {
-                    return errors.HTTPValidationError$.inboundSchema.parse({
-                        ...responseFields$,
-                        ...val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            throw result;
-        } else {
-            const responseBody = await response.text();
-            throw new errors.SDKError("Unexpected API response", response, responseBody);
-        }
+        const [result$] = await this.matcher<operations.ContinueResponse>()
+            .json(200, operations.ContinueResponse$, { key: "ChatResult" })
+            .sse(200, operations.ContinueResponse$, { key: "ChatResultStream" })
+            .json(422, errors.HTTPValidationError$, { err: true })
+            .fail(["4XX", "5XX"])
+            .match(response, { extraFields: responseFields$ });
+
+        return result$;
     }
 }

@@ -3,6 +3,7 @@
  */
 
 import { EventStream } from "../../lib/event-streams";
+import { remap as remap$ } from "../../lib/primitives";
 import * as components from "../components";
 import * as z from "zod";
 
@@ -36,22 +37,17 @@ export type ContinueResponse = {
 
 /** @internal */
 export namespace ContinueRequest$ {
-    export type Inbound = {
-        chat_session_id: string;
-        ContinueChatSessionWithChatResultInput: components.ContinueChatSessionWithChatResultInput$.Inbound;
-    };
-
-    export const inboundSchema: z.ZodType<ContinueRequest, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<ContinueRequest, z.ZodTypeDef, unknown> = z
         .object({
             chat_session_id: z.string(),
             ContinueChatSessionWithChatResultInput:
                 components.ContinueChatSessionWithChatResultInput$.inboundSchema,
         })
         .transform((v) => {
-            return {
-                chatSessionId: v.chat_session_id,
-                continueChatSessionWithChatResultInput: v.ContinueChatSessionWithChatResultInput,
-            };
+            return remap$(v, {
+                chat_session_id: "chatSessionId",
+                ContinueChatSessionWithChatResultInput: "continueChatSessionWithChatResultInput",
+            });
         });
 
     export type Outbound = {
@@ -66,24 +62,16 @@ export namespace ContinueRequest$ {
                 components.ContinueChatSessionWithChatResultInput$.outboundSchema,
         })
         .transform((v) => {
-            return {
-                chat_session_id: v.chatSessionId,
-                ContinueChatSessionWithChatResultInput: v.continueChatSessionWithChatResultInput,
-            };
+            return remap$(v, {
+                chatSessionId: "chat_session_id",
+                continueChatSessionWithChatResultInput: "ContinueChatSessionWithChatResultInput",
+            });
         });
 }
 
 /** @internal */
 export namespace ContinueResponse$ {
-    export type Inbound = {
-        ContentType: string;
-        StatusCode: number;
-        RawResponse: Response;
-        ChatResult?: components.ChatResult$.Inbound | undefined;
-        ChatResultStream?: ReadableStream<Uint8Array> | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<ContinueResponse, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<ContinueResponse, z.ZodTypeDef, unknown> = z
         .object({
             ContentType: z.string(),
             StatusCode: z.number().int(),
@@ -103,15 +91,13 @@ export namespace ContinueResponse$ {
                 .optional(),
         })
         .transform((v) => {
-            return {
-                contentType: v.ContentType,
-                statusCode: v.StatusCode,
-                rawResponse: v.RawResponse,
-                ...(v.ChatResult === undefined ? null : { chatResult: v.ChatResult }),
-                ...(v.ChatResultStream === undefined
-                    ? null
-                    : { chatResultStream: v.ChatResultStream }),
-            };
+            return remap$(v, {
+                ContentType: "contentType",
+                StatusCode: "statusCode",
+                RawResponse: "rawResponse",
+                ChatResult: "chatResult",
+                ChatResultStream: "chatResultStream",
+            });
         });
 
     export type Outbound = {
@@ -133,14 +119,12 @@ export namespace ContinueResponse$ {
             chatResultStream: z.never().optional(),
         })
         .transform((v) => {
-            return {
-                ContentType: v.contentType,
-                StatusCode: v.statusCode,
-                RawResponse: v.rawResponse,
-                ...(v.chatResult === undefined ? null : { ChatResult: v.chatResult }),
-                ...(v.chatResultStream === undefined
-                    ? null
-                    : { ChatResultStream: v.chatResultStream }),
-            };
+            return remap$(v, {
+                contentType: "ContentType",
+                statusCode: "StatusCode",
+                rawResponse: "RawResponse",
+                chatResult: "ChatResult",
+                chatResultStream: "ChatResultStream",
+            });
         });
 }

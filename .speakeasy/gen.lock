@@ -3,25 +3,30 @@ id: 34eefffd-7ab1-47f5-a2d6-ed3b060612b0
 management:
   docChecksum: 3421b267db90c24a6b62d0b3559978bc
   docVersion: 0.1.0
-  speakeasyVersion: 1.274.1
-  generationVersion: 2.314.0
-  releaseVersion: 0.7.2
-  configChecksum: aa85434c3f9b5cf4f0ae65db8ab208d5
+  speakeasyVersion: 1.300.1
+  generationVersion: 2.339.1
+  releaseVersion: 0.8.0
+  configChecksum: 1a4fe816598369f4453dfd6f981e663a
   repoURL: https://github.com/inkeep/ai-api-ts.git
   repoSubDirectory: .
   installationURL: https://github.com/inkeep/ai-api-ts
   published: true
 features:
   typescript:
-    acceptHeaders: 2.81.1
+    acceptHeaders: 2.81.2
+    additionalDependencies: 0.1.0
     constsAndDefaults: 0.1.5
-    core: 3.9.0
+    core: 3.9.12
     flattening: 2.81.1
     globalSecurity: 2.82.9
+    globalSecurityCallbacks: 0.1.0
+    globalSecurityFlattening: 0.1.0
     globalServerURLs: 2.82.4
+    nullables: 0.1.0
     responseFormat: 0.2.3
-    serverEvents: 0.1.3
-    unions: 2.85.3
+    sdkHooks: 0.1.0
+    serverEvents: 0.1.4
+    unions: 2.85.5
 generatedFiles:
   - src/sdk/chatsession.ts
   - src/sdk/sdk.ts
@@ -36,6 +41,8 @@ generatedFiles:
   - src/lib/encodings.ts
   - src/lib/event-streams.ts
   - src/lib/http.ts
+  - src/lib/is-plain-object.ts
+  - src/lib/primitives.ts
   - src/lib/retries.ts
   - src/lib/schemas.ts
   - src/lib/sdks.ts
@@ -45,6 +52,7 @@ generatedFiles:
   - src/models/errors/sdkerror.ts
   - src/models/errors/sdkvalidationerror.ts
   - src/types/blobs.ts
+  - src/types/enums.ts
   - src/types/index.ts
   - src/types/operations.ts
   - src/types/rfcdate.ts

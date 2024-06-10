@@ -11,31 +11,15 @@ export type RecordsCited = {
 
 /** @internal */
 export namespace RecordsCited$ {
-    export type Inbound = {
-        citations: Array<Citation$.Inbound>;
-    };
-
-    export const inboundSchema: z.ZodType<RecordsCited, z.ZodTypeDef, Inbound> = z
-        .object({
-            citations: z.array(Citation$.inboundSchema),
-        })
-        .transform((v) => {
-            return {
-                citations: v.citations,
-            };
-        });
+    export const inboundSchema: z.ZodType<RecordsCited, z.ZodTypeDef, unknown> = z.object({
+        citations: z.array(Citation$.inboundSchema),
+    });
 
     export type Outbound = {
         citations: Array<Citation$.Outbound>;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, RecordsCited> = z
-        .object({
-            citations: z.array(Citation$.outboundSchema),
-        })
-        .transform((v) => {
-            return {
-                citations: v.citations,
-            };
-        });
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, RecordsCited> = z.object({
+        citations: z.array(Citation$.outboundSchema),
+    });
 }

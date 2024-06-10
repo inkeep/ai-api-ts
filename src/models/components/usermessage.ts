@@ -11,37 +11,18 @@ export type UserMessage = {
 
 /** @internal */
 export namespace UserMessage$ {
-    export type Inbound = {
-        role?: "user" | undefined;
-        content: string;
-    };
-
-    export const inboundSchema: z.ZodType<UserMessage, z.ZodTypeDef, Inbound> = z
-        .object({
-            role: z.literal("user").optional(),
-            content: z.string(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.role === undefined ? null : { role: v.role }),
-                content: v.content,
-            };
-        });
+    export const inboundSchema: z.ZodType<UserMessage, z.ZodTypeDef, unknown> = z.object({
+        role: z.literal("user").optional(),
+        content: z.string(),
+    });
 
     export type Outbound = {
         role: "user";
         content: string;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, UserMessage> = z
-        .object({
-            role: z.literal("user").default("user" as const),
-            content: z.string(),
-        })
-        .transform((v) => {
-            return {
-                role: v.role,
-                content: v.content,
-            };
-        });
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, UserMessage> = z.object({
+        role: z.literal("user").default("user" as const),
+        content: z.string(),
+    });
 }

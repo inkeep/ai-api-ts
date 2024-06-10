@@ -15,13 +15,8 @@ export type ChatResultMessageChunkEvent = {
 
 /** @internal */
 export namespace ChatResultMessageChunkEvent$ {
-    export type Inbound = {
-        event?: "message_chunk" | undefined;
-        data: string;
-    };
-
-    export const inboundSchema: z.ZodType<ChatResultMessageChunkEvent, z.ZodTypeDef, Inbound> = z
-        .object({
+    export const inboundSchema: z.ZodType<ChatResultMessageChunkEvent, z.ZodTypeDef, unknown> =
+        z.object({
             event: z.literal("message_chunk").optional(),
             data: z
                 .string()
@@ -37,12 +32,6 @@ export namespace ChatResultMessageChunkEvent$ {
                     }
                 })
                 .pipe(MessageChunk$.inboundSchema),
-        })
-        .transform((v) => {
-            return {
-                ...(v.event === undefined ? null : { event: v.event }),
-                data: v.data,
-            };
         });
 
     export type Outbound = {
@@ -50,15 +39,9 @@ export namespace ChatResultMessageChunkEvent$ {
         data: MessageChunk$.Outbound;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, ChatResultMessageChunkEvent> = z
-        .object({
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, ChatResultMessageChunkEvent> =
+        z.object({
             event: z.literal("message_chunk").default("message_chunk" as const),
             data: MessageChunk$.outboundSchema,
-        })
-        .transform((v) => {
-            return {
-                event: v.event,
-                data: v.data,
-            };
         });
 }

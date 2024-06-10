@@ -15,13 +15,8 @@ export type ChatResultRecordsCitedEvent = {
 
 /** @internal */
 export namespace ChatResultRecordsCitedEvent$ {
-    export type Inbound = {
-        event?: "records_cited" | undefined;
-        data: string;
-    };
-
-    export const inboundSchema: z.ZodType<ChatResultRecordsCitedEvent, z.ZodTypeDef, Inbound> = z
-        .object({
+    export const inboundSchema: z.ZodType<ChatResultRecordsCitedEvent, z.ZodTypeDef, unknown> =
+        z.object({
             event: z.literal("records_cited").optional(),
             data: z
                 .string()
@@ -37,12 +32,6 @@ export namespace ChatResultRecordsCitedEvent$ {
                     }
                 })
                 .pipe(RecordsCited$.inboundSchema),
-        })
-        .transform((v) => {
-            return {
-                ...(v.event === undefined ? null : { event: v.event }),
-                data: v.data,
-            };
         });
 
     export type Outbound = {
@@ -50,15 +39,9 @@ export namespace ChatResultRecordsCitedEvent$ {
         data: RecordsCited$.Outbound;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, ChatResultRecordsCitedEvent> = z
-        .object({
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, ChatResultRecordsCitedEvent> =
+        z.object({
             event: z.literal("records_cited").default("records_cited" as const),
             data: RecordsCited$.outboundSchema,
-        })
-        .transform((v) => {
-            return {
-                event: v.event,
-                data: v.data,
-            };
         });
 }

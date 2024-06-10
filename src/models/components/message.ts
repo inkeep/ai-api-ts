@@ -10,14 +10,7 @@ export type Message = (UserMessage & { role: "user" }) | (AssistantMessage & { r
 
 /** @internal */
 export namespace Message$ {
-    export type Inbound =
-        | (UserMessage$.Inbound & { role: "user" })
-        | (AssistantMessage$.Inbound & { role: "assistant" });
-
-    export type Outbound =
-        | (UserMessage$.Outbound & { role: "user" })
-        | (AssistantMessage$.Outbound & { role: "assistant" });
-    export const inboundSchema: z.ZodType<Message, z.ZodTypeDef, Inbound> = z.union([
+    export const inboundSchema: z.ZodType<Message, z.ZodTypeDef, unknown> = z.union([
         UserMessage$.inboundSchema.and(
             z.object({ role: z.literal("user") }).transform((v) => ({ role: v.role }))
         ),
@@ -25,6 +18,10 @@ export namespace Message$ {
             z.object({ role: z.literal("assistant") }).transform((v) => ({ role: v.role }))
         ),
     ]);
+
+    export type Outbound =
+        | (UserMessage$.Outbound & { role: "user" })
+        | (AssistantMessage$.Outbound & { role: "assistant" });
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Message> = z.union([
         UserMessage$.outboundSchema.and(
             z.object({ role: z.literal("user") }).transform((v) => ({ role: v.role }))

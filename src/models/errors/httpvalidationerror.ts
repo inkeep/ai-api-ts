@@ -40,18 +40,12 @@ export class HTTPValidationError extends Error {
 
 /** @internal */
 export namespace HTTPValidationError$ {
-    export type Inbound = {
-        detail?: Array<components.ValidationError$.Inbound> | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<HTTPValidationError, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<HTTPValidationError, z.ZodTypeDef, unknown> = z
         .object({
             detail: z.array(components.ValidationError$.inboundSchema).optional(),
         })
         .transform((v) => {
-            return new HTTPValidationError({
-                ...(v.detail === undefined ? null : { detail: v.detail }),
-            });
+            return new HTTPValidationError(v);
         });
 
     export type Outbound = {
@@ -62,14 +56,8 @@ export namespace HTTPValidationError$ {
         .instanceof(HTTPValidationError)
         .transform((v) => v.data$)
         .pipe(
-            z
-                .object({
-                    detail: z.array(components.ValidationError$.outboundSchema).optional(),
-                })
-                .transform((v) => {
-                    return {
-                        ...(v.detail === undefined ? null : { detail: v.detail }),
-                    };
-                })
+            z.object({
+                detail: z.array(components.ValidationError$.outboundSchema).optional(),
+            })
         );
 }
