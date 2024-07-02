@@ -18,7 +18,6 @@ Create Chat Session
 
 ```typescript
 import { InkeepAI } from "@inkeep/ai-api";
-import { ChatModeOptions } from "@inkeep/ai-api/models/components";
 
 const inkeepAI = new InkeepAI({
   apiKey: "<YOUR_BEARER_TOKEN_HERE>",
@@ -33,11 +32,7 @@ async function run() {
             content: "<value>",
           },
       ],
-      tags: [
-        "<value>",
-      ],
     },
-  chatMode: ChatModeOptions.Auto,
   });
 
   if (res.chatResultStream == null) {
@@ -63,7 +58,7 @@ run();
 
 ### Response
 
-**Promise<[operations.CreateResponse](../../models/operations/createresponse.md)>**
+**Promise\<[operations.CreateResponse](../../models/operations/createresponse.md)\>**
 ### Errors
 
 | Error Object               | Status Code                | Content Type               |
@@ -85,27 +80,12 @@ const inkeepAI = new InkeepAI({
 });
 
 async function run() {
-  const chatSessionId = "<value>";
-  const continueChatSessionWithChatResultInput = {
+  const result = await inkeepAI.chatSession.continue("<value>", {
     integrationId: "<value>",
   message:     {
         content: "<value>",
-        recordsCited: {
-          citations: [
-            {
-              record: {
-              type: "<value>",
-                breadcrumbs: [
-                  "<value>",
-                ],
-              },
-            },
-          ],
-        },
       },
-  };
-  
-  const result = await inkeepAI.chatSession.continue(chatSessionId, continueChatSessionWithChatResultInput);
+  });
 
   if (res.chatResultStream == null) {
     throw new Error("failed to create stream: received null value");
@@ -131,7 +111,7 @@ run();
 
 ### Response
 
-**Promise<[operations.ContinueResponse](../../models/operations/continueresponse.md)>**
+**Promise\<[operations.ContinueResponse](../../models/operations/continueresponse.md)\>**
 ### Errors
 
 | Error Object               | Status Code                | Content Type               |

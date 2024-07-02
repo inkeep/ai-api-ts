@@ -1,6 +1,19 @@
-speakeasyVersion: 1.274.1
-sources: {}
-targets: {}
+speakeasyVersion: 1.325.0
+sources:
+    my-source:
+        sourceNamespace: my-source
+        sourceRevisionDigest: sha256:bc7a7084b8ee7d8f324f332c898f00347d05ad803ba3d0b3a6227ce16d216813
+        sourceBlobDigest: sha256:299ff4da823d27ed43d9bf743e8f8c67312f4d579c6a8b43d512fa872d9693f5
+        tags:
+            - latest
+            - main
+targets:
+    ai-api-ts:
+        source: my-source
+        sourceNamespace: my-source
+        sourceRevisionDigest: sha256:bc7a7084b8ee7d8f324f332c898f00347d05ad803ba3d0b3a6227ce16d216813
+        sourceBlobDigest: sha256:299ff4da823d27ed43d9bf743e8f8c67312f4d579c6a8b43d512fa872d9693f5
+        outLocation: /github/workspace/repo
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
@@ -8,6 +21,8 @@ workflow:
         my-source:
             inputs:
                 - location: https://raw.githubusercontent.com/inkeep/chat-api-openapi-schema/main/openapi.yaml
+            registry:
+                location: registry.speakeasyapi.dev/inkeep/inkeep/my-source
     targets:
         ai-api-ts:
             target: typescript

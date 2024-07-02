@@ -4,6 +4,8 @@ sources:
     my-source:
         inputs:
             - location: https://raw.githubusercontent.com/inkeep/chat-api-openapi-schema/main/openapi.yaml
+        registry:
+            location: registry.speakeasyapi.dev/inkeep/inkeep/my-source
 targets:
     ai-api-ts:
         target: typescript
