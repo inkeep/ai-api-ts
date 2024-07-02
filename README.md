@@ -16,10 +16,25 @@
 npm add @inkeep/ai-api
 ```
 
+### PNPM
+
+```bash
+pnpm add @inkeep/ai-api
+```
+
+### Bun
+
+```bash
+bun add @inkeep/ai-api
+```
+
 ### Yarn
 
 ```bash
-yarn add @inkeep/ai-api
+yarn add @inkeep/ai-api zod
+
+# Note that Yarn does not install peer dependencies automatically. You will need
+# to install zod as shown above.
 ```
 <!-- End SDK Installation [installation] -->
 
@@ -36,7 +51,6 @@ For supported JavaScript runtimes, please consult [RUNTIMES.md](RUNTIMES.md).
 
 ```typescript
 import { InkeepAI } from "@inkeep/ai-api";
-import { ChatModeOptions } from "@inkeep/ai-api/models/components";
 
 const inkeepAI = new InkeepAI({
     apiKey: "<YOUR_BEARER_TOKEN_HERE>",
@@ -51,9 +65,7 @@ async function run() {
                     content: "<value>",
                 },
             ],
-            tags: ["<value>"],
         },
-        chatMode: ChatModeOptions.Auto,
     });
 
     if (res.chatResultStream == null) {
@@ -90,7 +102,6 @@ underlying connection.
 
 ```typescript
 import { InkeepAI } from "@inkeep/ai-api";
-import { ChatModeOptions } from "@inkeep/ai-api/models/components";
 
 const inkeepAI = new InkeepAI({
     apiKey: "<YOUR_BEARER_TOKEN_HERE>",
@@ -105,9 +116,7 @@ async function run() {
                     content: "<value>",
                 },
             ],
-            tags: ["<value>"],
         },
-        chatMode: ChatModeOptions.Auto,
     });
 
     if (res.chatResultStream == null) {
@@ -142,8 +151,7 @@ Validation errors can also occur when either method arguments or data returned f
 
 ```typescript
 import { InkeepAI } from "@inkeep/ai-api";
-import { ChatModeOptions } from "@inkeep/ai-api/models/components";
-import * as errors from "@inkeep/ai-api/models/errors";
+import { SDKValidationError } from "@inkeep/ai-api/models/errors";
 
 const inkeepAI = new InkeepAI({
     apiKey: "<YOUR_BEARER_TOKEN_HERE>",
@@ -160,13 +168,11 @@ async function run() {
                         content: "<value>",
                     },
                 ],
-                tags: ["<value>"],
             },
-            chatMode: ChatModeOptions.Auto,
         });
     } catch (err) {
         switch (true) {
-            case err instanceof errors.SDKValidationError: {
+            case err instanceof SDKValidationError: {
                 // Validation errors can be pretty-printed
                 console.error(err.pretty());
                 // Raw value may also be inspected
@@ -210,7 +216,6 @@ You can override the default server globally by passing a server index to the `s
 
 ```typescript
 import { InkeepAI } from "@inkeep/ai-api";
-import { ChatModeOptions } from "@inkeep/ai-api/models/components";
 
 const inkeepAI = new InkeepAI({
     serverIdx: 0,
@@ -226,16 +231,14 @@ async function run() {
                     content: "<value>",
                 },
             ],
-            tags: ["<value>"],
         },
-        chatMode: ChatModeOptions.Auto,
     });
 
-    if (result.chatResultStream == null) {
+    if (res.chatResultStream == null) {
         throw new Error("failed to create stream: received null value");
     }
 
-    for await (const event of result.chatResultStream) {
+    for await (const event of res.chatResultStream) {
         // Handle the event
     }
 }
@@ -251,7 +254,6 @@ The default server can also be overridden globally by passing a URL to the `serv
 
 ```typescript
 import { InkeepAI } from "@inkeep/ai-api";
-import { ChatModeOptions } from "@inkeep/ai-api/models/components";
 
 const inkeepAI = new InkeepAI({
     serverURL: "https://api.inkeep.com",
@@ -267,16 +269,14 @@ async function run() {
                     content: "<value>",
                 },
             ],
-            tags: ["<value>"],
         },
-        chatMode: ChatModeOptions.Auto,
     });
 
-    if (result.chatResultStream == null) {
+    if (res.chatResultStream == null) {
         throw new Error("failed to create stream: received null value");
     }
 
-    for await (const event of result.chatResultStream) {
+    for await (const event of res.chatResultStream) {
         // Handle the event
     }
 }
@@ -316,7 +316,7 @@ const httpClient = new HTTPClient({
 
 httpClient.addHook("beforeRequest", (request) => {
   const nextRequest = new Request(request, {
-    signal: request.signal || AbortSignal.timeout(5000);
+    signal: request.signal || AbortSignal.timeout(5000)
   });
 
   nextRequest.headers.set("x-custom-header", "custom value");
@@ -349,7 +349,6 @@ This SDK supports the following security scheme globally:
 To authenticate with the API the `apiKey` parameter must be set when initializing the SDK client instance. For example:
 ```typescript
 import { InkeepAI } from "@inkeep/ai-api";
-import { ChatModeOptions } from "@inkeep/ai-api/models/components";
 
 const inkeepAI = new InkeepAI({
     apiKey: "<YOUR_BEARER_TOKEN_HERE>",
@@ -364,16 +363,14 @@ async function run() {
                     content: "<value>",
                 },
             ],
-            tags: ["<value>"],
         },
-        chatMode: ChatModeOptions.Auto,
     });
 
-    if (result.chatResultStream == null) {
+    if (res.chatResultStream == null) {
         throw new Error("failed to create stream: received null value");
     }
 
-    for await (const event of result.chatResultStream) {
+    for await (const event of res.chatResultStream) {
         // Handle the event
     }
 }

@@ -1,7 +1,6 @@
 <!-- Start SDK Example Usage [usage] -->
 ```typescript
 import { InkeepAI } from "@inkeep/ai-api";
-import { ChatModeOptions } from "@inkeep/ai-api/models/components";
 
 const inkeepAI = new InkeepAI({
     apiKey: "<YOUR_BEARER_TOKEN_HERE>",
@@ -16,9 +15,7 @@ async function run() {
                     content: "<value>",
                 },
             ],
-            tags: ["<value>"],
         },
-        chatMode: ChatModeOptions.Auto,
     });
 
     if (res.chatResultStream == null) {
