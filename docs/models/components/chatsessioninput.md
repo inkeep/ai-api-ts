@@ -1,5 +1,18 @@
 # ChatSessionInput
 
+## Example Usage
+
+```typescript
+import { ChatSessionInput } from "@inkeep/ai-api/models/components";
+
+let value: ChatSessionInput = {
+  messages: [
+    {
+      content: "<value>",
+    },
+  ],
+};
+```
 
 ## Fields
 

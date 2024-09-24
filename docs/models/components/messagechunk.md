@@ -1,5 +1,14 @@
 # MessageChunk
 
+## Example Usage
+
+```typescript
+import { MessageChunk } from "@inkeep/ai-api/models/components";
+
+let value: MessageChunk = {
+  contentChunk: "<value>",
+};
+```
 
 ## Fields
 

@@ -1,5 +1,17 @@
 # ChatResult
 
+## Example Usage
+
+```typescript
+import { ChatResult } from "@inkeep/ai-api/models/components";
+
+let value: ChatResult = {
+  chatSessionId: "<value>",
+  message: {
+    content: "<value>",
+  },
+};
+```
 
 ## Fields
 

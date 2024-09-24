@@ -1,5 +1,12 @@
 # ContinueResponse
 
+## Example Usage
+
+```typescript
+import { ContinueResponse } from "@inkeep/ai-api/models/operations";
+
+// No examples available for this model
+```
 
 ## Fields
 

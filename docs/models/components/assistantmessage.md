@@ -1,5 +1,14 @@
 # AssistantMessage
 
+## Example Usage
+
+```typescript
+import { AssistantMessage } from "@inkeep/ai-api/models/components";
+
+let value: AssistantMessage = {
+  content: "<value>",
+};
+```
 
 ## Fields
 

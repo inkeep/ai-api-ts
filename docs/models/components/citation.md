@@ -1,5 +1,16 @@
 # Citation
 
+## Example Usage
+
+```typescript
+import { Citation } from "@inkeep/ai-api/models/components";
+
+let value: Citation = {
+  record: {
+    type: "<value>",
+  },
+};
+```
 
 ## Fields
 

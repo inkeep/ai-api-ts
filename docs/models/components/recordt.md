@@ -1,5 +1,14 @@
 # RecordT
 
+## Example Usage
+
+```typescript
+import { RecordT, RecordTypeEnumerated } from "@inkeep/ai-api/models/components";
+
+let value: RecordT = {
+  type: RecordTypeEnumerated.DiscordMessage,
+};
+```
 
 ## Fields
 

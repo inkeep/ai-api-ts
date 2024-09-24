@@ -1,5 +1,20 @@
 # RecordsCited
 
+## Example Usage
+
+```typescript
+import { RecordsCited, RecordTypeEnumerated } from "@inkeep/ai-api/models/components";
+
+let value: RecordsCited = {
+  citations: [
+    {
+      record: {
+        type: RecordTypeEnumerated.CustomQuestionAnswer,
+      },
+    },
+  ],
+};
+```
 
 ## Fields
 
