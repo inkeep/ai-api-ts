@@ -1,5 +1,18 @@
 # ValidationError
 
+## Example Usage
+
+```typescript
+import { ValidationError } from "@inkeep/ai-api/models/components";
+
+let value: ValidationError = {
+  loc: [
+    "<value>",
+  ],
+  msg: "<value>",
+  type: "<value>",
+};
+```
 
 ## Fields
 

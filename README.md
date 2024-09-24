@@ -7,8 +7,33 @@
     </a>
 </div>
 
+<!-- Start Summary [summary] -->
+## Summary
+
+Inkeep Search and Chat API: Leverage the Inkeep APIs to create your own AI-powered search and chat experiences built on top of your own content.
+<!-- End Summary [summary] -->
+
+<!-- Start Table of Contents [toc] -->
+## Table of Contents
+
+* [SDK Installation](#sdk-installation)
+* [Requirements](#requirements)
+* [SDK Example Usage](#sdk-example-usage)
+* [Available Resources and Operations](#available-resources-and-operations)
+* [Standalone functions](#standalone-functions)
+* [Server-sent event streaming](#server-sent-event-streaming)
+* [Retries](#retries)
+* [Error Handling](#error-handling)
+* [Server Selection](#server-selection)
+* [Custom HTTP Client](#custom-http-client)
+* [Authentication](#authentication)
+* [Debugging](#debugging)
+<!-- End Table of Contents [toc] -->
+
 <!-- Start SDK Installation [installation] -->
 ## SDK Installation
+
+The SDK can be installed with either [npm](https://www.npmjs.com/), [pnpm](https://pnpm.io/), [bun](https://bun.sh/) or [yarn](https://classic.yarnpkg.com/en/) package managers.
 
 ### NPM
 
@@ -16,10 +41,25 @@
 npm add @inkeep/ai-api
 ```
 
+### PNPM
+
+```bash
+pnpm add @inkeep/ai-api
+```
+
+### Bun
+
+```bash
+bun add @inkeep/ai-api
+```
+
 ### Yarn
 
 ```bash
-yarn add @inkeep/ai-api
+yarn add @inkeep/ai-api zod
+
+# Note that Yarn does not install peer dependencies automatically. You will need
+# to install zod as shown above.
 ```
 <!-- End SDK Installation [installation] -->
 
@@ -36,33 +76,31 @@ For supported JavaScript runtimes, please consult [RUNTIMES.md](RUNTIMES.md).
 
 ```typescript
 import { InkeepAI } from "@inkeep/ai-api";
-import { ChatModeOptions } from "@inkeep/ai-api/models/components";
 
 const inkeepAI = new InkeepAI({
-    apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+  apiKey: "<YOUR_BEARER_TOKEN_HERE>",
 });
 
 async function run() {
-    const result = await inkeepAI.chatSession.create({
-        integrationId: "<value>",
-        chatSession: {
-            messages: [
-                {
-                    content: "<value>",
-                },
-            ],
-            tags: ["<value>"],
+  const result = await inkeepAI.chatSession.create({
+    integrationId: "<value>",
+    chatSession: {
+      messages: [
+        {
+          content: "<value>",
         },
-        chatMode: ChatModeOptions.Auto,
-    });
+      ],
+    },
+  });
 
-    if (res.chatResultStream == null) {
-        throw new Error("failed to create stream: received null value");
-    }
+  if (result.chatResultStream == null) {
+    throw new Error("failed to create stream: received null value");
+  }
 
-    for await (const event of res.chatResultStream) {
-        // Handle the event
-    }
+  for await (const event of result.chatResultStream) {
+    // Handle the event
+    console.log(event);
+  }
 }
 
 run();
@@ -73,11 +111,39 @@ run();
 <!-- Start Available Resources and Operations [operations] -->
 ## Available Resources and Operations
 
+<details open>
+<summary>Available methods</summary>
+
 ### [chatSession](docs/sdks/chatsession/README.md)
 
 * [create](docs/sdks/chatsession/README.md#create) - Create Chat Session
 * [continue](docs/sdks/chatsession/README.md#continue) - Continue Chat Session
+
+
+</details>
 <!-- End Available Resources and Operations [operations] -->
+
+<!-- Start Standalone functions [standalone-funcs] -->
+## Standalone functions
+
+All the methods listed above are available as standalone functions. These
+functions are ideal for use in applications running in the browser, serverless
+runtimes or other environments where application bundle size is a primary
+concern. When using a bundler to build your application, all unused
+functionality will be either excluded from the final bundle or tree-shaken away.
+
+To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
+
+<details>
+
+<summary>Available standalone functions</summary>
+
+- [chatSessionContinue](docs/sdks/chatsession/README.md#continue)
+- [chatSessionCreate](docs/sdks/chatsession/README.md#create)
+
+
+</details>
+<!-- End Standalone functions [standalone-funcs] -->
 
 <!-- Start Server-sent event streaming [eventstream] -->
 ## Server-sent event streaming
@@ -90,33 +156,31 @@ underlying connection.
 
 ```typescript
 import { InkeepAI } from "@inkeep/ai-api";
-import { ChatModeOptions } from "@inkeep/ai-api/models/components";
 
 const inkeepAI = new InkeepAI({
-    apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+  apiKey: "<YOUR_BEARER_TOKEN_HERE>",
 });
 
 async function run() {
-    const result = await inkeepAI.chatSession.create({
-        integrationId: "<value>",
-        chatSession: {
-            messages: [
-                {
-                    content: "<value>",
-                },
-            ],
-            tags: ["<value>"],
+  const result = await inkeepAI.chatSession.create({
+    integrationId: "<value>",
+    chatSession: {
+      messages: [
+        {
+          content: "<value>",
         },
-        chatMode: ChatModeOptions.Auto,
-    });
+      ],
+    },
+  });
 
-    if (res.chatResultStream == null) {
-        throw new Error("failed to create stream: received null value");
-    }
+  if (result.chatResultStream == null) {
+    throw new Error("failed to create stream: received null value");
+  }
 
-    for await (const event of res.chatResultStream) {
-        // Handle the event
-    }
+  for await (const event of result.chatResultStream) {
+    // Handle the event
+    console.log(event);
+  }
 }
 
 run();
@@ -126,6 +190,101 @@ run();
 [mdn-sse]: https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events
 [mdn-for-await-of]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of
 <!-- End Server-sent event streaming [eventstream] -->
+
+<!-- Start Retries [retries] -->
+## Retries
+
+Some of the endpoints in this SDK support retries.  If you use the SDK without any configuration, it will fall back to the default retry strategy provided by the API.  However, the default retry strategy can be overridden on a per-operation basis, or across the entire SDK.
+
+To change the default retry strategy for a single API call, simply provide a retryConfig object to the call:
+```typescript
+import { InkeepAI } from "@inkeep/ai-api";
+
+const inkeepAI = new InkeepAI({
+  apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+});
+
+async function run() {
+  const result = await inkeepAI.chatSession.create({
+    integrationId: "<value>",
+    chatSession: {
+      messages: [
+        {
+          content: "<value>",
+        },
+      ],
+    },
+  }, {
+    retries: {
+      strategy: "backoff",
+      backoff: {
+        initialInterval: 1,
+        maxInterval: 50,
+        exponent: 1.1,
+        maxElapsedTime: 100,
+      },
+      retryConnectionErrors: false,
+    },
+  });
+
+  if (result.chatResultStream == null) {
+    throw new Error("failed to create stream: received null value");
+  }
+
+  for await (const event of result.chatResultStream) {
+    // Handle the event
+    console.log(event);
+  }
+}
+
+run();
+
+```
+
+If you'd like to override the default retry strategy for all operations that support retries, you can provide a retryConfig at SDK initialization:
+```typescript
+import { InkeepAI } from "@inkeep/ai-api";
+
+const inkeepAI = new InkeepAI({
+  retryConfig: {
+    strategy: "backoff",
+    backoff: {
+      initialInterval: 1,
+      maxInterval: 50,
+      exponent: 1.1,
+      maxElapsedTime: 100,
+    },
+    retryConnectionErrors: false,
+  },
+  apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+});
+
+async function run() {
+  const result = await inkeepAI.chatSession.create({
+    integrationId: "<value>",
+    chatSession: {
+      messages: [
+        {
+          content: "<value>",
+        },
+      ],
+    },
+  });
+
+  if (result.chatResultStream == null) {
+    throw new Error("failed to create stream: received null value");
+  }
+
+  for await (const event of result.chatResultStream) {
+    // Handle the event
+    console.log(event);
+  }
+}
+
+run();
+
+```
+<!-- End Retries [retries] -->
 
 <!-- Start Error Handling [errors] -->
 ## Error Handling
@@ -142,54 +301,56 @@ Validation errors can also occur when either method arguments or data returned f
 
 ```typescript
 import { InkeepAI } from "@inkeep/ai-api";
-import { ChatModeOptions } from "@inkeep/ai-api/models/components";
-import * as errors from "@inkeep/ai-api/models/errors";
+import {
+  HTTPValidationError,
+  SDKValidationError,
+} from "@inkeep/ai-api/models/errors";
 
 const inkeepAI = new InkeepAI({
-    apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+  apiKey: "<YOUR_BEARER_TOKEN_HERE>",
 });
 
 async function run() {
-    let result;
-    try {
-        result = await inkeepAI.chatSession.create({
-            integrationId: "<value>",
-            chatSession: {
-                messages: [
-                    {
-                        content: "<value>",
-                    },
-                ],
-                tags: ["<value>"],
-            },
-            chatMode: ChatModeOptions.Auto,
-        });
-    } catch (err) {
-        switch (true) {
-            case err instanceof errors.SDKValidationError: {
-                // Validation errors can be pretty-printed
-                console.error(err.pretty());
-                // Raw value may also be inspected
-                console.error(err.rawValue);
-                return;
-            }
-            case err instanceof errors.HTTPValidationError: {
-                console.error(err); // handle exception
-                return;
-            }
-            default: {
-                throw err;
-            }
-        }
+  let result;
+  try {
+    result = await inkeepAI.chatSession.create({
+      integrationId: "<value>",
+      chatSession: {
+        messages: [
+          {
+            content: "<value>",
+          },
+        ],
+      },
+    });
+
+    if (result.chatResultStream == null) {
+      throw new Error("failed to create stream: received null value");
     }
 
-    if (res.chatResultStream == null) {
-        throw new Error("failed to create stream: received null value");
+    for await (const event of result.chatResultStream) {
+      // Handle the event
+      console.log(event);
     }
-
-    for await (const event of res.chatResultStream) {
-        // Handle the event
+  } catch (err) {
+    switch (true) {
+      case (err instanceof SDKValidationError): {
+        // Validation errors can be pretty-printed
+        console.error(err.pretty());
+        // Raw value may also be inspected
+        console.error(err.rawValue);
+        return;
+      }
+      case (err instanceof HTTPValidationError): {
+        // Handle err.data$: HTTPValidationErrorData
+        console.error(err);
+        return;
+      }
+      default: {
+        throw err;
+      }
     }
+  }
 }
 
 run();
@@ -210,34 +371,32 @@ You can override the default server globally by passing a server index to the `s
 
 ```typescript
 import { InkeepAI } from "@inkeep/ai-api";
-import { ChatModeOptions } from "@inkeep/ai-api/models/components";
 
 const inkeepAI = new InkeepAI({
-    serverIdx: 0,
-    apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+  serverIdx: 0,
+  apiKey: "<YOUR_BEARER_TOKEN_HERE>",
 });
 
 async function run() {
-    const result = await inkeepAI.chatSession.create({
-        integrationId: "<value>",
-        chatSession: {
-            messages: [
-                {
-                    content: "<value>",
-                },
-            ],
-            tags: ["<value>"],
+  const result = await inkeepAI.chatSession.create({
+    integrationId: "<value>",
+    chatSession: {
+      messages: [
+        {
+          content: "<value>",
         },
-        chatMode: ChatModeOptions.Auto,
-    });
+      ],
+    },
+  });
 
-    if (result.chatResultStream == null) {
-        throw new Error("failed to create stream: received null value");
-    }
+  if (result.chatResultStream == null) {
+    throw new Error("failed to create stream: received null value");
+  }
 
-    for await (const event of result.chatResultStream) {
-        // Handle the event
-    }
+  for await (const event of result.chatResultStream) {
+    // Handle the event
+    console.log(event);
+  }
 }
 
 run();
@@ -251,34 +410,32 @@ The default server can also be overridden globally by passing a URL to the `serv
 
 ```typescript
 import { InkeepAI } from "@inkeep/ai-api";
-import { ChatModeOptions } from "@inkeep/ai-api/models/components";
 
 const inkeepAI = new InkeepAI({
-    serverURL: "https://api.inkeep.com",
-    apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+  serverURL: "https://api.inkeep.com",
+  apiKey: "<YOUR_BEARER_TOKEN_HERE>",
 });
 
 async function run() {
-    const result = await inkeepAI.chatSession.create({
-        integrationId: "<value>",
-        chatSession: {
-            messages: [
-                {
-                    content: "<value>",
-                },
-            ],
-            tags: ["<value>"],
+  const result = await inkeepAI.chatSession.create({
+    integrationId: "<value>",
+    chatSession: {
+      messages: [
+        {
+          content: "<value>",
         },
-        chatMode: ChatModeOptions.Auto,
-    });
+      ],
+    },
+  });
 
-    if (result.chatResultStream == null) {
-        throw new Error("failed to create stream: received null value");
-    }
+  if (result.chatResultStream == null) {
+    throw new Error("failed to create stream: received null value");
+  }
 
-    for await (const event of result.chatResultStream) {
-        // Handle the event
-    }
+  for await (const event of result.chatResultStream) {
+    // Handle the event
+    console.log(event);
+  }
 }
 
 run();
@@ -316,7 +473,7 @@ const httpClient = new HTTPClient({
 
 httpClient.addHook("beforeRequest", (request) => {
   const nextRequest = new Request(request, {
-    signal: request.signal || AbortSignal.timeout(5000);
+    signal: request.signal || AbortSignal.timeout(5000)
   });
 
   nextRequest.headers.set("x-custom-header", "custom value");
@@ -349,39 +506,54 @@ This SDK supports the following security scheme globally:
 To authenticate with the API the `apiKey` parameter must be set when initializing the SDK client instance. For example:
 ```typescript
 import { InkeepAI } from "@inkeep/ai-api";
-import { ChatModeOptions } from "@inkeep/ai-api/models/components";
 
 const inkeepAI = new InkeepAI({
-    apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+  apiKey: "<YOUR_BEARER_TOKEN_HERE>",
 });
 
 async function run() {
-    const result = await inkeepAI.chatSession.create({
-        integrationId: "<value>",
-        chatSession: {
-            messages: [
-                {
-                    content: "<value>",
-                },
-            ],
-            tags: ["<value>"],
+  const result = await inkeepAI.chatSession.create({
+    integrationId: "<value>",
+    chatSession: {
+      messages: [
+        {
+          content: "<value>",
         },
-        chatMode: ChatModeOptions.Auto,
-    });
+      ],
+    },
+  });
 
-    if (result.chatResultStream == null) {
-        throw new Error("failed to create stream: received null value");
-    }
+  if (result.chatResultStream == null) {
+    throw new Error("failed to create stream: received null value");
+  }
 
-    for await (const event of result.chatResultStream) {
-        // Handle the event
-    }
+  for await (const event of result.chatResultStream) {
+    // Handle the event
+    console.log(event);
+  }
 }
 
 run();
 
 ```
 <!-- End Authentication [security] -->
+
+<!-- Start Debugging [debug] -->
+## Debugging
+
+You can setup your SDK to emit debug logs for SDK requests and responses.
+
+You can pass a logger that matches `console`'s interface as an SDK option.
+
+> [!WARNING]
+> Beware that debug logging will reveal secrets, like API tokens in headers, in log messages printed to a console or files. It's recommended to use this feature only during local development and not in production.
+
+```typescript
+import { InkeepAI } from "@inkeep/ai-api";
+
+const sdk = new InkeepAI({ debugLogger: console });
+```
+<!-- End Debugging [debug] -->
 
 <!-- Placeholder for Future Speakeasy SDK Sections -->
 

@@ -1,5 +1,12 @@
 # RecordTypeEnumerated
 
+## Example Usage
+
+```typescript
+import { RecordTypeEnumerated } from "@inkeep/ai-api/models/components";
+
+let value: RecordTypeEnumerated = RecordTypeEnumerated.GithubDiscussion;
+```
 
 ## Values
 

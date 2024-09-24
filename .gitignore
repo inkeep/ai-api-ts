@@ -1,3 +1,10 @@
+/funcs
+/core.*
+/esm
+/dist
+/.tshy
+/.tshy-*
+/__tests__
 /hooks
 /models
 /models/errors

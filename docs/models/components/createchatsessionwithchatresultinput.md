@@ -1,5 +1,21 @@
 # CreateChatSessionWithChatResultInput
 
+## Example Usage
+
+```typescript
+import { CreateChatSessionWithChatResultInput } from "@inkeep/ai-api/models/components";
+
+let value: CreateChatSessionWithChatResultInput = {
+  integrationId: "<value>",
+  chatSession: {
+    messages: [
+      {
+        content: "<value>",
+      },
+    ],
+  },
+};
+```
 
 ## Fields
 

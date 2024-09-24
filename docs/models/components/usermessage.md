@@ -1,5 +1,14 @@
 # UserMessage
 
+## Example Usage
+
+```typescript
+import { UserMessage } from "@inkeep/ai-api/models/components";
+
+let value: UserMessage = {
+  content: "<value>",
+};
+```
 
 ## Fields
 

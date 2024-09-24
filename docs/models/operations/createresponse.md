@@ -1,5 +1,12 @@
 # CreateResponse
 
+## Example Usage
+
+```typescript
+import { CreateResponse } from "@inkeep/ai-api/models/operations";
+
+// No examples available for this model
+```
 
 ## Fields
 
