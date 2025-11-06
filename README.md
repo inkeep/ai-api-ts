@@ -1,3 +1,11 @@
+> [!WARNING]
+> **Deprecation Notice**
+>
+> Please migrate our OpenAI Chat Completion API format
+>
+> See the updated documentation here: [Question Answer API](https://docs.inkeep.com/cloud/ai-api/question-answer-mode/overview)
+
+
 <div align="center">
     <img src="https://github.com/inkeep/ai-api-ts/assets/108416695/94986354-0863-4141-9d02-8cde193a7168" width="200">
     <h1>Inkeep Chat API TS SDK</h1>
